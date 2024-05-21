@@ -1,0 +1,145 @@
+{
+	"info": {
+		"_postman_id": "49d126bc-cabb-42e8-b1ca-ae9285823474",
+		"name": "social - express - render",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33381211"
+	},
+	"item": [
+		{
+			"name": "取得所有貼文",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://week3-w842.onrender.com/posts/",
+					"protocol": "https",
+					"host": [
+						"week3-w842",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"posts",
+						""
+					],
+					"query": [
+						{
+							"key": "timeSort",
+							"value": "desc",
+							"disabled": true
+						},
+						{
+							"key": "q",
+							"value": "sss",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "新增單筆貼文",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\":\"662f364619039dcf42a511cc\",\n    \"content\": \"\",\n    \"image\": \"https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\",\n    \"tags\": [\n        \"sea\"\n    ],\n    \"type\": \"group\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://week3-w842.onrender.com/posts/",
+					"protocol": "https",
+					"host": [
+						"week3-w842",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"posts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刪除全部貼文",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://week3-w842.onrender.com/posts/",
+					"protocol": "https",
+					"host": [
+						"week3-w842",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"posts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刪除單筆貼文",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://week3-w842.onrender.com/posts/66363ee60fbd493a73888d01",
+					"protocol": "https",
+					"host": [
+						"week3-w842",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"posts",
+						"66363ee60fbd493a73888d01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "修改單筆貼文",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"content\": \"今天要記得倒垃圾（好累\",\n    \"image\": \"https://images.unsplash.com/photo-1711333927183-6a6730c9ea6c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\",\n    \"tags\": [\n        \"日常\"\n    ],\n    \"type\": \"group\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://week3-w842.onrender.com/posts/663640440fbd493a73888d0c",
+					"protocol": "https",
+					"host": [
+						"week3-w842",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"posts",
+						"663640440fbd493a73888d0c"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
