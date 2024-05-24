@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const appError = require('../service/appError');
+const appSuccess = require('../service/appSuccess');
 const handleErrorAsync = require('../service/handleErrorAsync');
 const Post = require('../models/posts');
 const User = require('../models/users');
@@ -16,20 +17,9 @@ router.get('/', handleErrorAsync(async function(req, res, next) {
     }).sort(timeSort);
 
     if(posts.length === 0){
-        res.status(200).json({
-            'status': 'success',
-            'message': '目前尚無狀態，新增一則貼文吧！',
-            data: {
-                posts: []
-            }
-        });
+        appSuccess(res, 200, '目前尚無狀態，新增一則貼文吧！', { posts: [] });
     }else{
-        res.status(200).json({
-            'status': 'success',
-            data: {
-                posts
-            }
-        }) // 方法會自動結束不用額外加上res.end
+        appSuccess(res, 200, null, { posts });
     }
 }));
 
@@ -53,23 +43,17 @@ router.post('/', handleErrorAsync(async function(req, res, next) {
         type: type
     });
     
-    res.status(200).json({
-        message: '新增成功',
-        posts: newPost
-    });
+    appSuccess(res, 200, '新增成功', { posts: newPost });
 }));
 
 /* DELETE */
-router.delete('/', handleErrorAsync(async function(req, res, next) {
+router.delete('/posts', handleErrorAsync(async function(req, res, next) {
     await Post.deleteMany({});
-    res.status(200).json({
-        'status': 'success',
-        data: []
-    })
+    appSuccess(res, 200, '刪除所有貼文成功', []);
 }));
 
 /* DELETE only one*/
-router.delete('/:id', handleErrorAsync(async function(req, res, next) {
+router.delete('/post/:id', handleErrorAsync(async function(req, res, next) {
     const { id } = req.params;
 
     const deletePost = await Post.findByIdAndDelete(id);
@@ -78,14 +62,11 @@ router.delete('/:id', handleErrorAsync(async function(req, res, next) {
         return next(appError(404, "找不到指定ID的貼文"));
     }
 
-    res.status(200).json({
-        'status': 'success',
-        data: null
-    })
+    appSuccess(res, 200, '刪除貼文成功', null);
 }));
 
 /* PATCH only one*/
-router.patch('/:id', handleErrorAsync(async function(req, res, next) {
+router.patch('/post/:id', handleErrorAsync(async function(req, res, next) {
     const { id } = req.params;
     const { user, content, tags, type } = req.body;
     const posts = await Post.findByIdAndUpdate({_id: id}, { user, content, tags, type }, { new: true });
@@ -94,10 +75,7 @@ router.patch('/:id', handleErrorAsync(async function(req, res, next) {
         return next(appError(404, "找不到指定ID的貼文"));
     }
     
-    res.status(200).json({
-        'status': 'success',
-        'data': posts
-    })
+    appSuccess(res, 200, '更新貼文成功', post);
 }));
 
 

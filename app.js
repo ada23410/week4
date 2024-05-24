@@ -23,13 +23,13 @@ process.on('uncaughtException', err => {
 });
 
 // 環境變數
-dotenv.config({ path: './config.env' });
-const DB = process.env.DATABASE.replace(
-    '<password>',
-    process.env.DATABASE_PASSWORD
-);
+// dotenv.config({ path: './config.env' });
+// const DB = process.env.DATABASE.replace(
+//     '<password>',
+//     process.env.DATABASE_PASSWORD
+// );
   
-mongoose.connect(DB)
+mongoose.connect('mongodb://localhost:27017/social')
     .then(res=> console.log("連線資料成功"))
     .catch((error)=> {console.log('資料連線失敗',error)});
 
@@ -97,10 +97,10 @@ app.use((err, req, res, next) => {
     }
 });
 
-// const port = process.env.PORT || 3000; 
-// app.listen(port, () => {
-//     console.log(`Server is running on port ${port}`);
-// });
+const port = process.env.PORT || 3000; 
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
 
 // 未捕捉到的 catch 
 process.on('unhandledRejection', (err, promise) => {
