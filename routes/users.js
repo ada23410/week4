@@ -16,6 +16,14 @@ const generateSendJWT = (user, statusCode, res) => {
     });
     user.password = undefined;
 
+    // 調試輸出
+  console.log('Generated JWT token:', token);
+  console.log('User data:', {
+    id: user._id,
+    name: user.name,
+    email: user.email
+  });
+
     res.status(statusCode).json({
       status: 'success',
       user: {
@@ -64,21 +72,27 @@ router.post('/sign_up', handleErrorAsync(async (req, res, next) => {
 
 /* sign-up */
 router.post('/sign_in', handleErrorAsync(async (req, res, next) => {
-    const { email, password} = req.body;
+    const { email, password } = req.body;
 
     // 帳號密碼不可為空
-    if( !email || !password) {
-      return next(400, "帳號密碼不可為空")
+    if (!email || !password) {
+      return next(appError(400, "帳號密碼不可為空"));
     }
+
     // 驗證資料庫是否有此帳號，進而比對密碼
     const user = await User.findOne({ email }).select('+password');
+
+    if (!user) {
+      console.log('用戶不存在'); // 調試輸出
+      return next(appError(400, '用戶不存在'));
+    }
     const auth = await bcrypt.compare(password, user.password);
 
-    if(!auth) {
-      return next(appError(400,'你的密碼不正確'));
+    if (!auth) {
+      return next(appError(400, '你的密碼不正確'));
     }
 
-    generateSendJWT(newUser, 200, res);
+    generateSendJWT(user, 200, res);
 }));
 
 module.exports = router;
