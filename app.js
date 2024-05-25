@@ -23,12 +23,12 @@ process.on('uncaughtException', err => {
 });
 
 // 環境變數
-// dotenv.config({ path: './config.env' });
+dotenv.config({ path: './config.env' });
 // const DB = process.env.DATABASE.replace(
 //     '<password>',
 //     process.env.DATABASE_PASSWORD
 // );
-  
+
 mongoose.connect('mongodb://localhost:27017/social')
     .then(res=> console.log("連線資料成功"))
     .catch((error)=> {console.log('資料連線失敗',error)});
@@ -53,7 +53,6 @@ app.use(function(req, res, next) {
       message: "無此路由資訊",
     });
 });
-
 // production 環境錯誤
 const resErrorProd = (err, res) => {
 if (err.isOperational) {
