@@ -12,7 +12,6 @@ const router = express.Router();
 
 /* sign-up */
 router.post('/sign_up', handleErrorAsync(async (req, res, next) => {
-
     const { name, email, password, confirmPassword } = req.body;
 
     // 內容不可為空
@@ -35,9 +34,14 @@ router.post('/sign_up', handleErrorAsync(async (req, res, next) => {
         return next(appError(400, "Email格式不正確"));
     }
 
+    // 檢查電子郵件是否已存在
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return next(appError(400, "會員已存在！"));
+    }
+
     // 密碼加密
     const hashedPassword = await bcrypt.hash(password, 12);
-
     const newUser = await User.create({
         name,
         email,
