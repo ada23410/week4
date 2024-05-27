@@ -6,6 +6,7 @@ const User = require('../models/users');
 const appError = require('../service/appError');
 const appSuccess = require('../service/appSuccess');
 const handleErrorAsync = require('../service/handleErrorAsync');
+const app = require('../app');
 const router = express.Router();
 
 /* 產生JWT*/
@@ -118,11 +119,33 @@ const isAuth = handleErrorAsync(async (req, res, next) => {
   next();
 });
 
+/* profile */
 router.get('/profile', isAuth, handleErrorAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     user: req.user
   });
+}));
+
+/* update password */
+router.post('/updatePassword', isAuth, handleErrorAsync(async (req, res, next) => {
+    const { password, confirmPassword } = req.body;
+
+    if (password !== confirmPassword) {
+      return next(appError(400, '密碼不一致！'));
+    }
+
+    const newPassword = await bcrypt.hash(password, 12);
+
+    const user = await User.findByIdAndUpdate(req.user.id, {
+      password: newPassword
+    }, { new: true }); // 確保返回更新後的用戶
+
+    if (!user) {
+      return next(appError(404, '用戶未找到'));
+    }
+
+    generateSendJWT(user, 200, res);
 }));
 
 
