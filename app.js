@@ -57,11 +57,6 @@ app.use(function(req, res, next) {
 
 app.use(errorHandler);
 
-const port = process.env.PORT || 3000; 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
-
 // 未捕捉到的 catch 
 process.on('unhandledRejection', (err, promise) => {
     console.error('未捕捉到的 rejection：', promise, '原因：', err);
