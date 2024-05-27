@@ -5,6 +5,7 @@ const appSuccess = require('../service/appSuccess');
 const handleErrorAsync = require('../service/handleErrorAsync');
 const Post = require('../models/posts');
 const User = require('../models/users');
+const {isAuth,generateSendJWT} = require('../service/auth');
 
 /* GET */
 router.get('/', handleErrorAsync(async function(req, res, next) {
@@ -24,7 +25,7 @@ router.get('/', handleErrorAsync(async function(req, res, next) {
 }));
 
 /* POST */
-router.post('/', handleErrorAsync(async function(req, res, next) {
+router.post('/', isAuth, handleErrorAsync(async function(req, res, next) {
     const { user, content, tags, type, image } = req.body;
 
     if (content && content.trim() == '') {
@@ -36,7 +37,7 @@ router.post('/', handleErrorAsync(async function(req, res, next) {
     }
 
     const newPost = await Post.create({
-        user: user,
+        user: req.user.id,
         content: content.trim(),
         image: image,
         tags: tags,
