@@ -8,7 +8,7 @@ const User = require('../models/users');
 const {isAuth,generateSendJWT} = require('../service/auth');
 
 /* GET */
-router.get('/', handleErrorAsync(async function(req, res, next) {
+router.get('/',isAuth, handleErrorAsync(async function(req, res, next) {
     const timeSort = req.query.timeSort == "asc" ? "createdAt":"-createdAt"
     const q = req.query.q !== undefined ? {"content": new RegExp(req.query.q)} : {};
 
