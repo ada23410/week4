@@ -73,9 +73,33 @@ router.post('/sign_in', handleErrorAsync(async (req, res, next) => {
 
 /* profile */
 router.get('/profile', isAuth, handleErrorAsync(async (req, res, next) => {
-  res.status(200).json({
-    status: 'success',
-    user: req.user
+  appSuccess(res, 200, '檢視個人資料成功！', {
+    name: req.user.name,
+    email: req.user.email,
+    sex: req.user.sex
+  });
+}));
+
+/* update profile */
+router.patch('/profile', isAuth, handleErrorAsync(async (req, res, next) => {
+
+  const { name, sex } = req.body;
+
+  // 更新用戶資料
+  const updatedUser = await User.findByIdAndUpdate(
+    req.user.id,
+    { name, sex },
+    { new: true, runValidators: true }
+  );
+
+  if (!updatedUser) {
+    return next(appError(404, '用戶不存在'));
+  }
+
+  appSuccess(res, 200, '更新個人資料成功！', {
+    name: updatedUser.name,
+    email: updatedUser.email,
+    sex: updatedUser.sex
   });
 }));
 

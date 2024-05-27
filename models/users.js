@@ -11,12 +11,12 @@ const userSchema = new mongoose.Schema(
             required: [true, '請輸入您的 Email'],
             unique: true,
             lowercase: true,
-            select: false
         },
         photo: String,
         sex: {
             type: String,
-            enum: ['male','female']
+            enum: ['male','female','other'],
+            default: 'other' 
         },
         password: {
             type: String,
