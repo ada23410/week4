@@ -4,6 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const errorHandler = require('./service/errorHandle');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger-output.json');
 
 // 資料庫設定開始
 const mongoose = require('mongoose');
@@ -13,7 +15,9 @@ const dotenv= require('dotenv');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
+const uploadRouter = require('./routes/upload');
 const app = express();
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // 程式出現重大錯誤時
 process.on('uncaughtException', err => {
@@ -47,6 +51,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
+app.use('/upload', uploadRouter);
 
 app.use(function(req, res, next) {
     res.status(404).json({
@@ -56,6 +61,12 @@ app.use(function(req, res, next) {
 });
 
 app.use(errorHandler);
+
+// const port = process.env.PORT || 3000; 
+// app.listen(port, () => {
+//     console.log(`Server is running on port ${port}`);
+// });
+
 
 // 未捕捉到的 catch 
 process.on('unhandledRejection', (err, promise) => {

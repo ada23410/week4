@@ -11,7 +11,10 @@ const app = require('../app');
 const router = express.Router();
 
 /* sign-up */
-router.post('/sign_up', handleErrorAsync(async (req, res, next) => {
+router.post('/sign_up',
+    /* 	#swagger.tags = ['User']
+        #swagger.description = '註冊功能' */   
+    handleErrorAsync(async (req, res, next) => {
     const { name, email, password, confirmPassword } = req.body;
 
     // 內容不可為空
@@ -52,7 +55,10 @@ router.post('/sign_up', handleErrorAsync(async (req, res, next) => {
 }));
 
 /* sign-up */
-router.post('/sign_in', handleErrorAsync(async (req, res, next) => {
+router.post('/sign_in',
+    /* 	#swagger.tags = ['User']
+        #swagger.description = '登入功能' */   
+    handleErrorAsync(async (req, res, next) => {
     const { email, password } = req.body;
 
     // 帳號密碼不可為空
@@ -76,7 +82,10 @@ router.post('/sign_in', handleErrorAsync(async (req, res, next) => {
 }));
 
 /* profile */
-router.get('/profile', isAuth, handleErrorAsync(async (req, res, next) => {
+router.get('/profile',
+  /* 	#swagger.tags = ['User']
+      #swagger.description = '檢視個人資料' */   
+  isAuth, handleErrorAsync(async (req, res, next) => {
   appSuccess(res, 200, '檢視個人資料成功！', {
     name: req.user.name,
     email: req.user.email,
@@ -85,7 +94,10 @@ router.get('/profile', isAuth, handleErrorAsync(async (req, res, next) => {
 }));
 
 /* update profile */
-router.patch('/profile', isAuth, handleErrorAsync(async (req, res, next) => {
+router.patch('/profile',
+  /* 	#swagger.tags = ['User']
+      #swagger.description = '編輯個人資料' */   
+  isAuth, handleErrorAsync(async (req, res, next) => {
 
   const { name, sex } = req.body;
 
@@ -108,7 +120,10 @@ router.patch('/profile', isAuth, handleErrorAsync(async (req, res, next) => {
 }));
 
 /* update password */
-router.post('/updatePassword', isAuth, handleErrorAsync(async (req, res, next) => {
+router.post('/updatePassword',
+    /* 	#swagger.tags = ['User']
+        #swagger.description = '修改密碼功能' */  
+    isAuth, handleErrorAsync(async (req, res, next) => {
     const { password, confirmPassword } = req.body;
 
     if (password !== confirmPassword) {

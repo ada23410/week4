@@ -8,7 +8,10 @@ const User = require('../models/users');
 const {isAuth,generateSendJWT} = require('../service/auth');
 
 /* GET */
-router.get('/',isAuth, handleErrorAsync(async function(req, res, next) {
+router.get('/',
+    /* 	#swagger.tags = ['Post']
+        #swagger.description = '取得所有貼文' */
+    isAuth, handleErrorAsync(async function(req, res, next) {
     const timeSort = req.query.timeSort == "asc" ? "createdAt":"-createdAt"
     const q = req.query.q !== undefined ? {"content": new RegExp(req.query.q)} : {};
 
@@ -25,7 +28,10 @@ router.get('/',isAuth, handleErrorAsync(async function(req, res, next) {
 }));
 
 /* POST */
-router.post('/', isAuth, handleErrorAsync(async function(req, res, next) {
+router.post('/',
+    /* 	#swagger.tags = ['Post']
+        #swagger.description = '新增單筆貼文' */ 
+    isAuth, handleErrorAsync(async function(req, res, next) {
     const { user, content, tags, type, image } = req.body;
 
     if (content && content.trim() == '') {
@@ -48,13 +54,19 @@ router.post('/', isAuth, handleErrorAsync(async function(req, res, next) {
 }));
 
 /* DELETE */
-router.delete('/posts', handleErrorAsync(async function(req, res, next) {
+router.delete('/posts',
+    /* 	#swagger.tags = ['Post']
+        #swagger.description = '刪除所有貼文' */  
+    handleErrorAsync(async function(req, res, next) {
     await Post.deleteMany({});
     appSuccess(res, 200, '刪除所有貼文成功', []);
 }));
 
 /* DELETE only one*/
-router.delete('/post/:id', handleErrorAsync(async function(req, res, next) {
+router.delete('/post/:id',
+    /* 	#swagger.tags = ['Post']
+        #swagger.description = '刪除單筆貼文' */  
+    handleErrorAsync(async function(req, res, next) {
     const { id } = req.params;
 
     const deletePost = await Post.findByIdAndDelete(id);
@@ -67,7 +79,10 @@ router.delete('/post/:id', handleErrorAsync(async function(req, res, next) {
 }));
 
 /* PATCH only one*/
-router.patch('/post/:id', handleErrorAsync(async function(req, res, next) {
+router.patch('/post/:id',
+    /* 	#swagger.tags = ['Post']
+        #swagger.description = '修改單筆貼文' */  
+    handleErrorAsync(async function(req, res, next) {
     const { id } = req.params;
     const { user, content, tags, type } = req.body;
     const posts = await Post.findByIdAndUpdate({_id: id}, { user, content, tags, type }, { new: true });
