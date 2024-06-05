@@ -10,7 +10,12 @@
 			"name": "取得所有貼文",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTQwY2MzMTZjM2Q0YjEyM2UzMjY5YSIsImlhdCI6MTcxNjc4NDQyMiwiZXhwIjoxNzE3Mzg5MjIyfQ.CGq0AaLX5j6BWkjGf_TialzwnbWBF3YWItGjrg6F-_s"
+					}
+				],
 				"url": {
 					"raw": "https://week4-5eud.onrender.com/posts/",
 					"protocol": "https",
@@ -43,7 +48,12 @@
 			"name": "新增單筆貼文",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTQwY2MzMTZjM2Q0YjEyM2UzMjY5YSIsImlhdCI6MTcxNjc4NDQyMiwiZXhwIjoxNzE3Mzg5MjIyfQ.CGq0AaLX5j6BWkjGf_TialzwnbWBF3YWItGjrg6F-_s"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"user\":\"662f364619039dcf42a511cc\",\n    \"content\": \"我要吃豪華大餐\",\n    \"image\": \"https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\",\n    \"tags\": [\n        \"food\"\n    ],\n    \"type\": \"person\"\n}",
@@ -142,13 +152,13 @@
 			"response": []
 		},
 		{
-			"name": "註冊功能 Copy",
+			"name": "註冊功能",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Aida\",\n    \"email\": \"ada10050616@gmail.com\",\n    \"password\": \"A225894878\",\n    \"confirmPassword\": \"A225894878\"\n}",
+					"raw": "{\n    \"name\": \"Alice\",\n    \"email\": \"alice@example.com\",\n    \"password\": \"Alice1234\",\n    \"confirmPassword\": \"Alice1234\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -156,15 +166,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:3000/users/sign_up",
-					"protocol": "http",
+					"raw": "https://week4-5eud.onrender.com/users/sign_up",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"week4-5eud",
+						"onrender",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"users",
 						"sign_up"
@@ -174,13 +182,18 @@
 			"response": []
 		},
 		{
-			"name": "登入功能 Copy",
+			"name": "登入功能",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWZmMmNkZTZmNDUyNzI4ZTc4Nzk5ZiIsImlhdCI6MTcxNzU2NDEwOSwiZXhwIjoxNzE4MTY4OTA5fQ.2UVgQ2AkVJq51MmDGbnhzZB0fcMX99BVWaxMFAjO_dM"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"ada10050616@gmail.com\",\n    \"password\": \"Aida91214\"\n}",
+					"raw": "{\n    \"email\": \"alice@example.com\",\n    \"password\": \"Alice1234\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -188,15 +201,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:3000/users/sign_in",
-					"protocol": "http",
+					"raw": "https://week4-5eud.onrender.com/users/sign_in",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"week4-5eud",
+						"onrender",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"users",
 						"sign_in"
@@ -206,25 +217,23 @@
 			"response": []
 		},
 		{
-			"name": "檢視個人資料 Copy",
+			"name": "檢視個人資料",
 			"request": {
 				"method": "GET",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTNmMDQ2ZTUxMzZmM2E5MjE5MzFmNCIsImlhdCI6MTcxNjc3ODgxNiwiZXhwIjoxNzE3MzgzNjE2fQ.ZIjS8b8-drCbGVwDokieHR9pBiykzuZt5AEIm6zWzdI"
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTQwY2MzMTZjM2Q0YjEyM2UzMjY5YSIsImlhdCI6MTcxNjc4NDQyMiwiZXhwIjoxNzE3Mzg5MjIyfQ.CGq0AaLX5j6BWkjGf_TialzwnbWBF3YWItGjrg6F-_s"
 					}
 				],
 				"url": {
-					"raw": "http://127.0.0.1:3000/users/profile",
-					"protocol": "http",
+					"raw": "https://week4-5eud.onrender.com/users/profile",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"week4-5eud",
+						"onrender",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"users",
 						"profile"
@@ -234,13 +243,13 @@
 			"response": []
 		},
 		{
-			"name": "更新密碼功能 Copy",
+			"name": "更新密碼功能",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTNmMDQ2ZTUxMzZmM2E5MjE5MzFmNCIsImlhdCI6MTcxNjc3NzA1OCwiZXhwIjoxNzE3MzgxODU4fQ.Sq4cO8IIvVxXMWIRa76nsV6P8AZefuOoLId8qoQtaqA"
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTQwY2MzMTZjM2Q0YjEyM2UzMjY5YSIsImlhdCI6MTcxNjc4NDQyMiwiZXhwIjoxNzE3Mzg5MjIyfQ.CGq0AaLX5j6BWkjGf_TialzwnbWBF3YWItGjrg6F-_s"
 					}
 				],
 				"body": {
@@ -253,15 +262,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:3000/users/updatePassword",
-					"protocol": "http",
+					"raw": "https://week4-5eud.onrender.com/users/updatePassword",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"week4-5eud",
+						"onrender",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"users",
 						"updatePassword"
@@ -271,13 +278,13 @@
 			"response": []
 		},
 		{
-			"name": "更新個人資料 Copy",
+			"name": "更新個人資料",
 			"request": {
 				"method": "PATCH",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTNmMDQ2ZTUxMzZmM2E5MjE5MzFmNCIsImlhdCI6MTcxNjc4MDg3MiwiZXhwIjoxNzE3Mzg1NjcyfQ.AAN3uJATxm4dhVuf16Yj88jlvCnEZ98AWRvsdUEdlPY"
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTQwY2MzMTZjM2Q0YjEyM2UzMjY5YSIsImlhdCI6MTcxNjc4NDQyMiwiZXhwIjoxNzE3Mzg5MjIyfQ.CGq0AaLX5j6BWkjGf_TialzwnbWBF3YWItGjrg6F-_s"
 					}
 				],
 				"body": {
@@ -290,18 +297,52 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:3000/users/profile",
-					"protocol": "http",
+					"raw": "https://week4-5eud.onrender.com/users/profile",
+					"protocol": "https",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"week4-5eud",
+						"onrender",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"users",
 						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "上傳圖片",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWZmMmNkZTZmNDUyNzI4ZTc4Nzk5ZiIsImlhdCI6MTcxNzU2NDEwOSwiZXhwIjoxNzE4MTY4OTA5fQ.2UVgQ2AkVJq51MmDGbnhzZB0fcMX99BVWaxMFAjO_dM"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/ada23410/Desktop/截圖 2024-06-03 上午11.04.00.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://week4-5eud.onrender.com/upload/file",
+					"protocol": "https",
+					"host": [
+						"week4-5eud",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"upload",
+						"file"
 					]
 				}
 			},
