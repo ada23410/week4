@@ -11,7 +11,7 @@ const bucket = firebaseAdmin.storage().bucket();
 
 const {isAuth,generateSendJWT} = require('../service/auth');
 
-router.post('/file',upload, handleErrorAsync(async (req, res, next)=> {
+router.post('/file',isAuth ,upload , handleErrorAsync(async (req, res, next)=> {
     // 是否有上傳檔案
     if(!req.files.length) {
         return next(appError(400,"尚未上傳檔案",next));

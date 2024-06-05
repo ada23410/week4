@@ -32,6 +32,11 @@ router.post('/sign_up',
         return next(appError(400, "密碼字數低於8碼"));
     }
 
+     // 驗證密碼是否包含至少一個字母和一個數字
+    if (!/(?=.*[A-Za-z])(?=.*\d)/.test(password)) {
+      return next(appError(400, "密碼需包含至少一個字母和一個數字"));
+    }
+
     // 是否為email格式
     if (!validator.isEmail(email)) {
         return next(appError(400, "Email格式不正確"));
@@ -128,6 +133,16 @@ router.post('/updatePassword',
 
     if (password !== confirmPassword) {
       return next(appError(400, '密碼不一致！'));
+    }
+
+    // 密碼是否低於8碼
+    if (!validator.isLength(password, { min: 8 })) {
+      return next(appError(400, "密碼字數低於8碼"));
+    }
+    
+    // 密碼至少包含一個字母和一個數字
+    if (!/(?=.*[A-Za-z])(?=.*\d)/.test(password)) {
+      return next(appError(400, "密碼需包含至少一個字母和一個數字"));
     }
 
     const newPassword = await bcrypt.hash(password, 12);
