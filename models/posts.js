@@ -32,8 +32,8 @@ const postSchema = new mongoose.Schema(
             select: false
           },
           likes: {
-              type:Number,
-              default:0
+              type: mongoose.Schema.ObjectId,
+              ref: 'User'
             },
           comments: {
             type: Number,
@@ -41,10 +41,17 @@ const postSchema = new mongoose.Schema(
           }
     },
     {
-        versionKey: false // 去除資料庫欄位的__v
+        versionKey: false, // 去除資料庫欄位的__v
+        toJSON: { virtual: true },
+        toObject: { virtual: true }
     }
 );
 
+postSchema.virtual('commentsV', {
+  ref: 'Comment',
+  foreignField: 'post',
+  localField: '_id'
+});
 const Post = mongoose.model('Post', postSchema);
 
 module.exports = Post;

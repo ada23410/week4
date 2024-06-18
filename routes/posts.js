@@ -5,6 +5,7 @@ const appSuccess = require('../service/appSuccess');
 const handleErrorAsync = require('../service/handleErrorAsync');
 const Post = require('../models/posts');
 const User = require('../models/users');
+const Comment = require('../models/comments');
 const {isAuth,generateSendJWT} = require('../service/auth');
 
 /* GET */
@@ -18,6 +19,9 @@ router.get('/',
     const posts = await Post.find(q).populate({
         path: 'user',
         select: 'name photo '
+    }).populate({
+        path: 'commentsV',
+        select: 'comment user'
     }).sort(timeSort);
 
     if(posts.length === 0){
@@ -94,5 +98,28 @@ router.patch('/post/:id',
     appSuccess(res, 200, '更新貼文成功', post);
 }));
 
+/* POST in comment*/
+router.post('/:id/comment', isAuth, handleErrorAsync(async(req, res, next) => {
+    const user = req.user.id;
+    const post = req.params.id;
+    const { comment }= req.body;
+    const newComment = await Comment.create({
+        post,
+        user,
+        comment
+    });
+    appSuccess(res, 201, '新增成功', newComment);
+}));
+
+/* GET posts list*/
+router.get('/user/:id', handleErrorAsync(async(req, res, next) => {
+    const user = req.params.id;
+    const posts = await Post.find({user}).populate({
+        path: 'comments',
+        select: 'comment user'
+    });
+
+    appSuccess(res, 200, 'success', { results: posts.length, posts })
+}))
 
 module.exports = router;
