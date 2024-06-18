@@ -226,4 +226,17 @@ router.delete('/:id/unfollow', isAuth, handleErrorAsync(async(req, res, next) =>
   appSuccess(res, 200, '你已成功取消追蹤！')
 }));
 
+/* get personal following list */
+router.get('/following', isAuth, handleErrorAsync(async(req, res, next) =>{
+  const user = await User.findById(req.user.id).populate({
+    path: 'following.user',
+    select: 'name _id'
+  })
+  if (!user) {
+      return next(appError(404, '找不到用戶', next));
+  }
+
+  appSuccess(res, 200, 'success', user.following);
+}));
+
 module.exports = router;
