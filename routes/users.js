@@ -4,6 +4,7 @@ const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const User = require('../models/users');
 const appError = require('../service/appError');
+const Post = require('../models/posts');
 const appSuccess = require('../service/appSuccess');
 const handleErrorAsync = require('../service/handleErrorAsync');
 const {isAuth,generateSendJWT} = require('../service/auth');
@@ -158,5 +159,71 @@ router.post('/updatePassword',
     generateSendJWT(user, 200, res);
 }));
 
+/* get personal like list */
+router.get('/getLikeList', isAuth, handleErrorAsync(async(req, res, next) => {
+  const likeList = await Post.find({
+    likes: { $in: [req.user.id] }
+  }).populate({
+    path: "user",
+    select: "name _id"
+  })
+
+  appSuccess(res, 200, 'success', likeList);
+}));
+
+/* follow friend */
+router.post('/:id/follow', isAuth, handleErrorAsync(async(req, res, next) => {
+   
+  if(req.params.id === req.user.id) {
+    return next(appError(401, '您無法追蹤自己' ,next));
+  }
+
+  // 更新當前用戶的following列表
+  await User.updateOne(
+    {
+      _id: req.user.id,
+      'following.user': { $ne: req.params.id }
+    },
+    {
+      $addToSet: { following: { user: req.params.id }}
+    }
+  );
+  // 更新目標用戶的followers列表
+  await User.updateOne(
+    {
+      _id: req.params.id,
+      'followers.user': { $ne: req.user.id}
+    },
+    {
+      $addToSet: { followers: { user: req.user.id}}
+    }
+  );
+  appSuccess(res, 200, '你已成功追蹤！')
+}));
+
+/* unfollow friend */
+router.delete('/:id/unfollow', isAuth, handleErrorAsync(async(req, res, next) => {
+
+  if(req.params.id === req.user.id) {
+    return next(appError(401, '您無法取消追蹤自己', next))
+  }
+  await User.updateOne(
+    {
+      _id: req.user.id
+    },
+    {
+      $pull: { following: { user: req.params.id }}
+    }
+  );
+  await User.updateOne(
+    {
+      _id: req.params.id
+    },
+    {
+      $pull: { followers: { user: req.user.id }}
+    }
+  );
+  appSuccess(res, 200, '你已成功取消追蹤！')
+}));
 
 module.exports = router;

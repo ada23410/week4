@@ -98,6 +98,38 @@ router.patch('/post/:id',
     appSuccess(res, 200, '更新貼文成功', post);
 }));
 
+/* POST in likes*/
+router.post('/:id/likes', isAuth, handleErrorAsync(async(req, res, next) => {
+    const _id = req.params.id;
+
+        const post = await Post.findOneAndUpdate(
+            { _id },
+            { $addToSet: { likes: req.user.id } },
+            { new: true } 
+        );
+
+        if (!post) {
+            return next(appError(404, '找不到該貼文'));
+        }
+
+        appSuccess(res, 201, 'success', { postId: _id, userId: req.user.id });
+}));
+
+/* POST in unlike*/
+router.delete('/:id/likes', isAuth, handleErrorAsync(async(req, res, next) => {
+    const _id = req.params.id;
+    const post = await Post.findOneAndUpdate(
+        { _id },
+        { $addToSet: { likes: req.user.id } }
+    );
+
+    if (!post) {
+        return next(appError(404, '找不到該貼文'));
+    }
+
+    appSuccess(res, 201, 'success', { postId: _id, userId: req.user.id });
+}));
+
 /* POST in comment*/
 router.post('/:id/comment', isAuth, handleErrorAsync(async(req, res, next) => {
     const user = req.user.id;
