@@ -51,12 +51,12 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NTQwY2MzMTZjM2Q0YjEyM2UzMjY5YSIsImlhdCI6MTcxNjc4NDQyMiwiZXhwIjoxNzE3Mzg5MjIyfQ.CGq0AaLX5j6BWkjGf_TialzwnbWBF3YWItGjrg6F-_s"
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzI1YmJmMmUxYzE2YjhmZjY1MDVjZiIsImlhdCI6MTcxODc3MDYyMywiZXhwIjoxNzE5Mzc1NDIzfQ.1ULihSJrGZdajcRyObP-Q7TpNP57rCmr_RQGaLAnzrk"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"user\":\"662f364619039dcf42a511cc\",\n    \"content\": \"我要吃豪華大餐\",\n    \"image\": \"https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\",\n    \"tags\": [\n        \"food\"\n    ],\n    \"type\": \"person\"\n}",
+					"raw": "{\n    \"user\":\"66725bbf2e1c16b8ff6505cf\",\n    \"content\": \"我要吃豪華大餐\",\n    \"image\": \"https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\",\n    \"tags\": [\n        \"food\"\n    ],\n    \"type\": \"person\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -188,7 +188,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWZmMmNkZTZmNDUyNzI4ZTc4Nzk5ZiIsImlhdCI6MTcxNzU2NDEwOSwiZXhwIjoxNzE4MTY4OTA5fQ.2UVgQ2AkVJq51MmDGbnhzZB0fcMX99BVWaxMFAjO_dM"
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzI1YmJmMmUxYzE2YjhmZjY1MDVjZiIsImlhdCI6MTcxODc3MDYyMywiZXhwIjoxNzE5Mzc1NDIzfQ.1ULihSJrGZdajcRyObP-Q7TpNP57rCmr_RQGaLAnzrk"
 					}
 				],
 				"body": {
@@ -343,6 +343,250 @@
 					"path": [
 						"upload",
 						"file"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "新增一篇貼文的留言",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzI1YmJmMmUxYzE2YjhmZjY1MDVjZiIsImlhdCI6MTcxODc3MDY5MiwiZXhwIjoxNzE5Mzc1NDkyfQ.t-XPDQPfomE1TRNacp_9QrgUqzUOL0RiW9Hgm73zSYg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comment\": \"這是留言訊息！\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://week4-5eud.onrender.com/posts/66725c622e1c16b8ff6505d3/comment",
+					"protocol": "https",
+					"host": [
+						"week4-5eud",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"posts",
+						"66725c622e1c16b8ff6505d3",
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "新增一則貼文的讚",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzI1YmJmMmUxYzE2YjhmZjY1MDVjZiIsImlhdCI6MTcxODc3MDY5MiwiZXhwIjoxNzE5Mzc1NDkyfQ.t-XPDQPfomE1TRNacp_9QrgUqzUOL0RiW9Hgm73zSYg"
+					}
+				],
+				"url": {
+					"raw": "https://week4-5eud.onrender.com/posts/66725c622e1c16b8ff6505d3/likes",
+					"protocol": "https",
+					"host": [
+						"week4-5eud",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"posts",
+						"66725c622e1c16b8ff6505d3",
+						"likes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "取得個人所有貼文列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://week4-5eud.onrender.com/posts/user/6670fb6c3674775a442d00e1",
+					"protocol": "https",
+					"host": [
+						"week4-5eud",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"posts",
+						"user",
+						"6670fb6c3674775a442d00e1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "取消一則貼文的讚",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzBmYjZjMzY3NDc3NWE0NDJkMDBlMSIsImlhdCI6MTcxODY4MDQyOCwiZXhwIjoxNzE5Mjg1MjI4fQ.igmmBJrvBr_mXO3owptklsNYLu615jyCV2-Bk4OpEFE"
+					}
+				],
+				"url": {
+					"raw": "https://week4-5eud.onrender.com/posts/6671339ecb9a320836b4e32c/likes",
+					"protocol": "https",
+					"host": [
+						"week4-5eud",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"posts",
+						"6671339ecb9a320836b4e32c",
+						"likes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "取得個人按讚列表",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzBmYjZjMzY3NDc3NWE0NDJkMDBlMSIsImlhdCI6MTcxODY4MDQyOCwiZXhwIjoxNzE5Mjg1MjI4fQ.igmmBJrvBr_mXO3owptklsNYLu615jyCV2-Bk4OpEFE"
+					}
+				],
+				"url": {
+					"raw": "https://week4-5eud.onrender.com/users/getLikeList",
+					"protocol": "https",
+					"host": [
+						"week4-5eud",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"users",
+						"getLikeList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "追蹤朋友",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzBmYjZjMzY3NDc3NWE0NDJkMDBlMSIsImlhdCI6MTcxODY4MDQyOCwiZXhwIjoxNzE5Mjg1MjI4fQ.igmmBJrvBr_mXO3owptklsNYLu615jyCV2-Bk4OpEFE"
+					}
+				],
+				"url": {
+					"raw": "https://week4-5eud.onrender.com/users/665d35ef8d6f881ead58ee33/follow",
+					"protocol": "https",
+					"host": [
+						"week4-5eud",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"users",
+						"665d35ef8d6f881ead58ee33",
+						"follow"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "取消追蹤朋友",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzBmYjZjMzY3NDc3NWE0NDJkMDBlMSIsImlhdCI6MTcxODY4MDQyOCwiZXhwIjoxNzE5Mjg1MjI4fQ.igmmBJrvBr_mXO3owptklsNYLu615jyCV2-Bk4OpEFE"
+					}
+				],
+				"url": {
+					"raw": "https://week4-5eud.onrender.com/users/665feff7e5e177fddc8117fa/unfollow",
+					"protocol": "https",
+					"host": [
+						"week4-5eud",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"users",
+						"665feff7e5e177fddc8117fa",
+						"unfollow"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "取得個人追蹤名單",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzBmYjZjMzY3NDc3NWE0NDJkMDBlMSIsImlhdCI6MTcxODY4MDQyOCwiZXhwIjoxNzE5Mjg1MjI4fQ.igmmBJrvBr_mXO3owptklsNYLu615jyCV2-Bk4OpEFE"
+					}
+				],
+				"url": {
+					"raw": "https://week4-5eud.onrender.com/users/following",
+					"protocol": "https",
+					"host": [
+						"week4-5eud",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"users",
+						"following"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "取得單一貼文",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NzBmYjZjMzY3NDc3NWE0NDJkMDBlMSIsImlhdCI6MTcxODY4MDQyOCwiZXhwIjoxNzE5Mjg1MjI4fQ.igmmBJrvBr_mXO3owptklsNYLu615jyCV2-Bk4OpEFE"
+					}
+				],
+				"url": {
+					"raw": "https://week4-5eud.onrender.com/posts/6671339ecb9a320836b4e32c",
+					"protocol": "https",
+					"host": [
+						"week4-5eud",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"posts",
+						"6671339ecb9a320836b4e32c"
 					]
 				}
 			},
