@@ -107,6 +107,11 @@ router.patch('/profile',
 
   const { name, sex } = req.body;
 
+  // 檢查是否提供了name或sex
+  if (!name && !sex) {
+    return next(appError(400, '必須提供至少一個要更新的內容'));
+  }
+
   // 更新用戶資料
   const updatedUser = await User.findByIdAndUpdate(
     req.user.id,

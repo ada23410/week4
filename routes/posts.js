@@ -8,7 +8,7 @@ const User = require('../models/users');
 const Comment = require('../models/comments');
 const {isAuth,generateSendJWT} = require('../service/auth');
 
-/* GET */
+/* GET all posts */
 router.get('/',
     /* 	#swagger.tags = ['Post']
         #swagger.description = '取得所有貼文' */
@@ -31,7 +31,25 @@ router.get('/',
     }
 }));
 
-/* POST */
+/* GET one post */
+router.get('/:id', isAuth, handleErrorAsync(async(req, res, next) => {
+    const id = req.params.id;
+    const post = await Post.findById(id).populate({
+        path: 'user',
+        select: 'name photo'
+    }).populate({
+        path: 'commentsV',
+        select: 'comment user'
+    });
+
+    if (!post) {
+        return next(appError(404, '找不到該貼文', next));
+    }
+
+    appSuccess(res, 200, 'success', post);
+}));
+
+/* POST only post*/
 router.post('/',
     /* 	#swagger.tags = ['Post']
         #swagger.description = '新增單筆貼文' */ 
@@ -57,7 +75,7 @@ router.post('/',
     appSuccess(res, 200, '新增成功', { posts: newPost });
 }));
 
-/* DELETE */
+/* DELETE all posts*/
 router.delete('/posts',
     /* 	#swagger.tags = ['Post']
         #swagger.description = '刪除所有貼文' */  
@@ -89,6 +107,11 @@ router.patch('/post/:id',
     handleErrorAsync(async function(req, res, next) {
     const { id } = req.params;
     const { user, content, tags, type } = req.body;
+
+    if (!content || content.trim() === '') {
+        return next(appError(400, "你沒有填寫 content 資料"));
+    }
+    
     const posts = await Post.findByIdAndUpdate({_id: id}, { user, content, tags, type }, { new: true });
 
     if(! posts) {
@@ -112,7 +135,7 @@ router.post('/:id/likes', isAuth, handleErrorAsync(async(req, res, next) => {
             return next(appError(404, '找不到該貼文'));
         }
 
-        appSuccess(res, 201, 'success', { postId: _id, userId: req.user.id });
+        appSuccess(res, 201, '按讚成功', { postId: _id, userId: req.user.id });
 }));
 
 /* POST in unlike*/
@@ -127,7 +150,7 @@ router.delete('/:id/likes', isAuth, handleErrorAsync(async(req, res, next) => {
         return next(appError(404, '找不到該貼文'));
     }
 
-    appSuccess(res, 201, 'success', { postId: _id, userId: req.user.id });
+    appSuccess(res, 201, '取消按讚成功', { postId: _id, userId: req.user.id });
 }));
 
 /* POST in comment*/
@@ -135,6 +158,10 @@ router.post('/:id/comment', isAuth, handleErrorAsync(async(req, res, next) => {
     const user = req.user.id;
     const post = req.params.id;
     const { comment }= req.body;
+    if (!comment || comment.trim() === '') {
+        return next(appError(400, '留言內容不可為空'));
+    }
+    
     const newComment = await Comment.create({
         post,
         user,
