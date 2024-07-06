@@ -11,7 +11,37 @@ const bucket = firebaseAdmin.storage().bucket();
 
 const {isAuth,generateSendJWT} = require('../service/auth');
 
-router.post('/file',isAuth ,upload , handleErrorAsync(async (req, res, next)=> {
+router.post('/file',
+    /*  #swagger.tags = ['File']
+        #swagger.description = '檔案上傳功能' */
+    /* #swagger.parameters['file'] = {
+        in: 'formData',
+        description: '要上傳的檔案',
+        required: true,
+        type: 'file'
+    } */
+    /* #swagger.responses[200] = { 
+        schema: {
+            "message": "string",
+            "data": {
+                "fileUrl": "string"
+            }
+        },
+        description: "上傳成功"
+    } */
+    /* #swagger.responses[400] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Bad request. 檔案大小超過 2MB 或其他錯誤。"
+    } */
+    /* #swagger.responses[500] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Internal server error. 上傳失敗。"
+    } */
+    isAuth ,upload , handleErrorAsync(async (req, res, next)=> {
     upload(req, res, function (err) {
         if (err instanceof multer.MulterError) {
             if (err.code === 'LIMIT_FILE_SIZE') {

@@ -14,7 +14,41 @@ const router = express.Router();
 /* sign-up */
 router.post('/sign_up',
     /* 	#swagger.tags = ['User']
-        #swagger.description = '註冊功能' */   
+        #swagger.description = '註冊功能' */
+    /*	#swagger.parameters['obj'] = {
+          in: 'body',
+          description: '註冊功能',
+          required: true,
+          schema: {
+              "name": "username",
+              "email": "user@example.com",
+              "password": "yourpassword",
+              "confirmPassword": "yourpassword"
+        }
+    } */ 
+    /* #swagger.responses[201] = { 
+        schema: {
+            "id": "string",
+            "name": "string",
+            "email": "string",
+            "createdAt": "string",
+            "updatedAt": "string",
+            "token": "string"
+        },
+        description: "User registered successfully." 
+    } */
+    /* #swagger.responses[400] = { 
+        schema: {
+            "error": "string"
+        },
+        description: "Bad request. Invalid input data." 
+    } */
+    /* #swagger.responses[500] = { 
+        schema: {
+            "error": "string"
+        },
+        description: "Internal server error." 
+    } */
     handleErrorAsync(async (req, res, next) => {
     const { name, email, password, confirmPassword } = req.body;
 
@@ -63,7 +97,37 @@ router.post('/sign_up',
 /* sign-up */
 router.post('/sign_in',
     /* 	#swagger.tags = ['User']
-        #swagger.description = '登入功能' */   
+        #swagger.description = '登入功能' */
+    /*	#swagger.parameters['obj'] = {
+          in: 'body',
+          description: '登入功能',
+          required: true,
+          schema: {
+              "email": "user@example.com",
+              "password": "password1234"
+        }
+    } */ 
+    /* #swagger.responses[200] = { 
+        schema: {
+            "id": "string",
+            "name": "string",
+            "email": "string",
+            "token": "string"
+        },
+        description: "User signed in successfully." 
+    } */
+    /* #swagger.responses[400] = { 
+        schema: {
+            "error": "string"
+        },
+        description: "Bad request. Invalid input data." 
+    } */
+    /* #swagger.responses[500] = { 
+        schema: {
+            "error": "string"
+        },
+        description: "Internal server error." 
+    } */
     handleErrorAsync(async (req, res, next) => {
     const { email, password } = req.body;
 
@@ -90,7 +154,27 @@ router.post('/sign_in',
 /* profile */
 router.get('/profile',
   /* 	#swagger.tags = ['User']
-      #swagger.description = '檢視個人資料' */   
+      #swagger.description = '檢視個人資料' */
+  /* #swagger.responses[200] = { 
+      schema: {
+          "name": "string",
+          "email": "string",
+          "sex": "string"
+      },
+      description: "檢視個人資料成功！"
+  } */
+  /* #swagger.responses[401] = { 
+      schema: {
+          "error": "string"
+      },
+      description: "Unauthorized. Invalid or missing token."
+  } */
+  /* #swagger.responses[500] = { 
+      schema: {
+          "error": "string"
+      },
+      description: "Internal server error."
+  } */
   isAuth, handleErrorAsync(async (req, res, next) => {
   appSuccess(res, 200, '檢視個人資料成功！', {
     name: req.user.name,
@@ -102,7 +186,42 @@ router.get('/profile',
 /* update profile */
 router.patch('/profile',
   /* 	#swagger.tags = ['User']
-      #swagger.description = '編輯個人資料' */   
+      #swagger.description = '編輯個人資料' */
+  /*	#swagger.parameters['obj'] = {
+        in: 'body',
+        description: '編輯個人資料',
+        required: true,
+        schema: {
+            "name": "string",
+            "sex": "string"
+      }
+  } */ 
+  /* #swagger.responses[200] = { 
+      schema: {
+          "name": "string",
+          "email": "string",
+          "sex": "string"
+      },
+      description: "更新個人資料成功！"
+  } */
+  /* #swagger.responses[400] = { 
+      schema: {
+          "error": "string"
+      },
+      description: "Bad request. 必須提供至少一個要更新的內容。"
+  } */
+  /* #swagger.responses[404] = { 
+      schema: {
+          "error": "string"
+      },
+      description: "Not found. 用戶不存在。"
+  } */
+  /* #swagger.responses[500] = { 
+      schema: {
+          "error": "string"
+      },
+      description: "Internal server error."
+  } */  
   isAuth, handleErrorAsync(async (req, res, next) => {
 
   const { name, sex } = req.body;
@@ -132,8 +251,41 @@ router.patch('/profile',
 
 /* update password */
 router.post('/updatePassword',
-    /* 	#swagger.tags = ['User']
-        #swagger.description = '修改密碼功能' */  
+     /* 	#swagger.tags = ['User']
+        #swagger.description = '修改密碼功能' */
+    /*	#swagger.parameters['obj'] = {
+          in: 'body',
+          description: '修改密碼功能',
+          required: true,
+          schema: {
+              "password": "newpassword",
+              "confirmPassword": "newpassword"
+        }
+    } */ 
+    /* #swagger.responses[200] = { 
+        schema: {
+            "message": "string"
+        },
+        description: "密碼修改成功"
+    } */
+    /* #swagger.responses[400] = { 
+        schema: {
+            "error": "string"
+        },
+        description: "Bad request. 密碼不一致或格式不正確。"
+    } */
+    /* #swagger.responses[404] = { 
+        schema: {
+            "error": "string"
+        },
+        description: "Not found. 用戶未找到。"
+    } */
+    /* #swagger.responses[500] = { 
+        schema: {
+            "error": "string"
+        },
+        description: "Internal server error."
+    } */ 
     isAuth, handleErrorAsync(async (req, res, next) => {
     const { password, confirmPassword } = req.body;
 
@@ -165,7 +317,39 @@ router.post('/updatePassword',
 }));
 
 /* get personal like list */
-router.get('/getLikeList', isAuth, handleErrorAsync(async(req, res, next) => {
+router.get('/getLikeList',
+  /*  #swagger.tags = ['User']
+      #swagger.description = '獲取個人喜歡列表' */
+  /* #swagger.responses[200] = { 
+      schema: {
+          "message": "string",
+          "data": [
+              {
+                  "_id": "string",
+                  "title": "string",
+                  "content": "string",
+                  "user": {
+                      "_id": "string",
+                      "name": "string"
+                  }
+              }
+          ]
+      },
+      description: "獲取個人喜歡列表成功"
+  } */
+  /* #swagger.responses[401] = { 
+      schema: {
+          "error": "string"
+      },
+      description: "Unauthorized. Invalid or missing token."
+  } */
+  /* #swagger.responses[500] = { 
+      schema: {
+          "error": "string"
+      },
+      description: "Internal server error."
+  } */ 
+  isAuth, handleErrorAsync(async(req, res, next) => {
   const likeList = await Post.find({
     likes: { $in: [req.user.id] }
   }).populate({
@@ -177,7 +361,40 @@ router.get('/getLikeList', isAuth, handleErrorAsync(async(req, res, next) => {
 }));
 
 /* follow friend */
-router.post('/:id/follow', isAuth, handleErrorAsync(async(req, res, next) => {
+router.post('/:id/follow',
+  /*  #swagger.tags = ['User']
+      #swagger.description = '追蹤好友' */
+  /* #swagger.parameters['id'] = {
+        in: 'path',
+        description: '被追蹤用戶的ID',
+        required: true,
+        type: 'string'
+  } */ 
+  /* #swagger.responses[200] = { 
+      schema: {
+          "message": "string"
+      },
+      description: "你已成功追蹤！"
+  } */
+  /* #swagger.responses[400] = { 
+      schema: {
+          "error": "string"
+      },
+      description: "Bad request. 無法追蹤自己或其他錯誤。"
+  } */
+  /* #swagger.responses[401] = { 
+      schema: {
+          "error": "string"
+      },
+      description: "Unauthorized. 無效或缺少token。"
+  } */
+  /* #swagger.responses[500] = { 
+      schema: {
+          "error": "string"
+      },
+      description: "Internal server error."
+  } */ 
+  isAuth, handleErrorAsync(async(req, res, next) => {
    
   if(req.params.id === req.user.id) {
     return next(appError(401, '您無法追蹤自己' ,next));
@@ -207,7 +424,40 @@ router.post('/:id/follow', isAuth, handleErrorAsync(async(req, res, next) => {
 }));
 
 /* unfollow friend */
-router.delete('/:id/unfollow', isAuth, handleErrorAsync(async(req, res, next) => {
+router.delete('/:id/unfollow',
+  /*  #swagger.tags = ['User']
+      #swagger.description = '取消追蹤好友' */
+  /* #swagger.parameters['id'] = {
+        in: 'path',
+        description: '被取消追蹤用戶的ID',
+        required: true,
+        type: 'string'
+  } */ 
+  /* #swagger.responses[200] = { 
+      schema: {
+          "message": "string"
+      },
+      description: "你已成功取消追蹤！"
+  } */
+  /* #swagger.responses[400] = { 
+      schema: {
+          "error": "string"
+      },
+      description: "Bad request. 無法取消追蹤自己或其他錯誤。"
+  } */
+  /* #swagger.responses[401] = { 
+      schema: {
+          "error": "string"
+      },
+      description: "Unauthorized. 無效或缺少token。"
+  } */
+  /* #swagger.responses[500] = { 
+      schema: {
+          "error": "string"
+      },
+      description: "Internal server error."
+  } */ 
+  isAuth, handleErrorAsync(async(req, res, next) => {
 
   if(req.params.id === req.user.id) {
     return next(appError(401, '您無法取消追蹤自己', next))
@@ -232,7 +482,40 @@ router.delete('/:id/unfollow', isAuth, handleErrorAsync(async(req, res, next) =>
 }));
 
 /* get personal following list */
-router.get('/following', isAuth, handleErrorAsync(async(req, res, next) =>{
+router.get('/following',
+  /*  #swagger.tags = ['User']
+      #swagger.description = '獲取個人追蹤列表' */
+  /* #swagger.responses[200] = { 
+      schema: {
+          "message": "string",
+          "data": [
+              {
+                  "_id": "string",
+                  "name": "string"
+              }
+          ]
+      },
+      description: "獲取個人追蹤列表成功"
+  } */
+  /* #swagger.responses[401] = { 
+      schema: {
+          "error": "string"
+      },
+      description: "Unauthorized. Invalid or missing token."
+  } */
+  /* #swagger.responses[404] = { 
+      schema: {
+          "error": "string"
+      },
+      description: "Not found. 找不到用戶。"
+  } */
+  /* #swagger.responses[500] = { 
+      schema: {
+          "error": "string"
+      },
+      description: "Internal server error."
+  } */ 
+  isAuth, handleErrorAsync(async(req, res, next) =>{
   const user = await User.findById(req.user.id).populate({
     path: 'following.user',
     select: 'name _id'

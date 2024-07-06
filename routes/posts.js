@@ -12,6 +12,61 @@ const {isAuth,generateSendJWT} = require('../service/auth');
 router.get('/',
     /* 	#swagger.tags = ['Post']
         #swagger.description = '取得所有貼文' */
+    /* #swagger.parameters['timeSort'] = {
+        in: 'query',
+        description: '時間排序，asc 為遞增，desc 為遞減',
+        required: false,
+        type: 'string'
+    } */
+    /* #swagger.parameters['q'] = {
+        in: 'query',
+        description: '搜尋關鍵字',
+        required: false,
+        type: 'string'
+    } */
+    /* #swagger.responses[200] = {
+        schema: {
+            "message": "string",
+            "data": {
+                "posts": [
+                    {
+                        "_id": "string",
+                        "content": "string",
+                        "user": {
+                            "_id": "string",
+                            "name": "string",
+                            "photo": "string"
+                        },
+                        "commentsV": [
+                            {
+                                "_id": "string",
+                                "comment": "string",
+                                "user": {
+                                    "_id": "string",
+                                    "name": "string"
+                                }
+                            }
+                        ],
+                        "createdAt": "string",
+                        "updatedAt": "string"
+                    }
+                ]
+            }
+        },
+        description: "取得所有貼文成功"
+    } */
+    /* #swagger.responses[401] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Unauthorized. 無效或缺少token。"
+    } */
+    /* #swagger.responses[500] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Internal server error."
+    } */
     isAuth, handleErrorAsync(async function(req, res, next) {
     const timeSort = req.query.timeSort == "asc" ? "createdAt":"-createdAt"
     const q = req.query.q !== undefined ? {"content": new RegExp(req.query.q)} : {};
@@ -32,7 +87,61 @@ router.get('/',
 }));
 
 /* GET one post */
-router.get('/:id', isAuth, handleErrorAsync(async(req, res, next) => {
+router.get('/:id',
+    /* 	#swagger.tags = ['Post']
+        #swagger.description = '取得單一貼文' */
+    /* #swagger.parameters['id'] = {
+        in: 'path',
+        description: '貼文的ID',
+        required: true,
+        type: 'string'
+    } */
+    /* #swagger.responses[200] = {
+        schema: {
+            "message": "string",
+            "data": {
+                "_id": "string",
+                "content": "string",
+                "user": {
+                    "_id": "string",
+                    "name": "string",
+                    "photo": "string"
+                },
+                "commentsV": [
+                    {
+                        "_id": "string",
+                        "comment": "string",
+                        "user": {
+                            "_id": "string",
+                            "name": "string"
+                        }
+                    }
+                ],
+                "createdAt": "string",
+                "updatedAt": "string"
+            }
+        },
+        description: "取得單一貼文成功"
+    } */
+    /* #swagger.responses[401] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Unauthorized. 無效或缺少token。"
+    } */          
+    /* #swagger.responses[404] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Not found. 找不到該貼文。"
+    } */
+    /* #swagger.responses[500] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Internal server error."
+    } */ 
+    isAuth, handleErrorAsync(async(req, res, next) => {
     const id = req.params.id;
     const post = await Post.findById(id).populate({
         path: 'user',
@@ -51,8 +160,59 @@ router.get('/:id', isAuth, handleErrorAsync(async(req, res, next) => {
 
 /* POST only post*/
 router.post('/',
-    /* 	#swagger.tags = ['Post']
-        #swagger.description = '新增單筆貼文' */ 
+     /* 	#swagger.tags = ['Post']
+        #swagger.description = '新增單筆貼文' */
+    /*	#swagger.parameters['obj'] = {
+          in: 'body',
+          description: '新增貼文的資料',
+          required: true,
+          schema: {
+              "content": "string",
+              "tags": ["string"],
+              "type": "string",
+              "image": "string"
+        }
+    } */ 
+    /* #swagger.responses[200] = { 
+        schema: {
+            "message": "string",
+            "data": {
+                "posts": {
+                    "_id": "string",
+                    "content": "string",
+                    "user": {
+                        "_id": "string",
+                        "name": "string",
+                        "photo": "string"
+                    },
+                    "tags": ["string"],
+                    "type": "string",
+                    "image": "string",
+                    "createdAt": "string",
+                    "updatedAt": "string"
+                }
+            }
+        },
+        description: "新增成功"
+    } */
+    /* #swagger.responses[400] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Bad request. 沒有填寫content資料或圖片網址格式不正確。"
+    } */
+    /* #swagger.responses[401] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Unauthorized. 無效或缺少token。"
+    } */
+    /* #swagger.responses[500] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Internal server error."
+    } */
     isAuth, handleErrorAsync(async function(req, res, next) {
     const { user, content, tags, type, image } = req.body;
 
@@ -78,7 +238,26 @@ router.post('/',
 /* DELETE all posts*/
 router.delete('/posts',
     /* 	#swagger.tags = ['Post']
-        #swagger.description = '刪除所有貼文' */  
+        #swagger.description = '刪除所有貼文' */
+    /* #swagger.responses[200] = { 
+        schema: {
+            "message": "string",
+            "data": []
+        },
+        description: "刪除所有貼文成功"
+    } */
+    /* #swagger.responses[401] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Unauthorized. 無效或缺少token。"
+    } */
+    /* #swagger.responses[500] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Internal server error."
+    } */
     handleErrorAsync(async function(req, res, next) {
     await Post.deleteMany({});
     appSuccess(res, 200, '刪除所有貼文成功', []);
@@ -87,7 +266,37 @@ router.delete('/posts',
 /* DELETE only one*/
 router.delete('/post/:id',
     /* 	#swagger.tags = ['Post']
-        #swagger.description = '刪除單筆貼文' */  
+        #swagger.description = '刪除單筆貼文' */
+    /* #swagger.parameters['id'] = {
+        in: 'path',
+        description: '貼文的ID',
+        required: true,
+        type: 'string'
+    } */
+    /* #swagger.responses[200] = { 
+        schema: {
+            "message": "string"
+        },
+        description: "刪除貼文成功"
+    } */
+    /* #swagger.responses[404] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Not found. 找不到指定ID的貼文。"
+    } */
+    /* #swagger.responses[401] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Unauthorized. 無效或缺少token。"
+    } */
+    /* #swagger.responses[500] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Internal server error."
+    } */
     handleErrorAsync(async function(req, res, next) {
     const { id } = req.params;
 
@@ -102,8 +311,68 @@ router.delete('/post/:id',
 
 /* PATCH only one*/
 router.patch('/post/:id',
-    /* 	#swagger.tags = ['Post']
-        #swagger.description = '修改單筆貼文' */  
+     /* 	#swagger.tags = ['Post']
+        #swagger.description = '修改單筆貼文' */
+    /* #swagger.parameters['id'] = {
+        in: 'path',
+        description: '貼文的ID',
+        required: true,
+        type: 'string'
+    } */
+    /* #swagger.parameters['obj'] = {
+        in: 'body',
+        description: '貼文的更新資料',
+        required: true,
+        schema: {
+            "user": "string",
+            "content": "string",
+            "tags": ["string"],
+            "type": "string"
+        }
+    } */
+    /* #swagger.responses[200] = { 
+        schema: {
+            "message": "string",
+            "data": {
+                "_id": "string",
+                "content": "string",
+                "user": {
+                    "_id": "string",
+                    "name": "string",
+                    "photo": "string"
+                },
+                "tags": ["string"],
+                "type": "string",
+                "createdAt": "string",
+                "updatedAt": "string"
+            }
+        },
+        description: "更新貼文成功"
+    } */
+    /* #swagger.responses[400] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Bad request. 沒有填寫content資料。"
+    } */
+    /* #swagger.responses[404] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Not found. 找不到指定ID的貼文。"
+    } */
+    /* #swagger.responses[401] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Unauthorized. 無效或缺少token。"
+    } */
+    /* #swagger.responses[500] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Internal server error."
+    } */
     handleErrorAsync(async function(req, res, next) {
     const { id } = req.params;
     const { user, content, tags, type } = req.body;
@@ -122,7 +391,44 @@ router.patch('/post/:id',
 }));
 
 /* POST in likes*/
-router.post('/:id/likes', isAuth, handleErrorAsync(async(req, res, next) => {
+router.post('/:id/likes',
+    /* 	#swagger.tags = ['Post']
+        #swagger.description = '對貼文按讚' */
+    /* #swagger.parameters['id'] = {
+        in: 'path',
+        description: '貼文的ID',
+        required: true,
+        type: 'string'
+    } */
+    /* #swagger.responses[201] = { 
+        schema: {
+            "message": "string",
+            "data": {
+                "postId": "string",
+                "userId": "string"
+            }
+        },
+        description: "按讚成功"
+    } */
+    /* #swagger.responses[404] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Not found. 找不到該貼文。"
+    } */
+    /* #swagger.responses[401] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Unauthorized. 無效或缺少token。"
+    } */
+    /* #swagger.responses[500] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Internal server error."
+    } */ 
+    isAuth, handleErrorAsync(async(req, res, next) => {
     const _id = req.params.id;
 
         const post = await Post.findOneAndUpdate(
@@ -139,7 +445,44 @@ router.post('/:id/likes', isAuth, handleErrorAsync(async(req, res, next) => {
 }));
 
 /* POST in unlike*/
-router.delete('/:id/likes', isAuth, handleErrorAsync(async(req, res, next) => {
+router.delete('/:id/likes',
+    /* 	#swagger.tags = ['Post']
+        #swagger.description = '取消按讚' */
+    /* #swagger.parameters['id'] = {
+        in: 'path',
+        description: '貼文的ID',
+        required: true,
+        type: 'string'
+    } */
+    /* #swagger.responses[200] = { 
+        schema: {
+            "message": "string",
+            "data": {
+                "postId": "string",
+                "userId": "string"
+            }
+        },
+        description: "取消按讚成功"
+    } */
+    /* #swagger.responses[404] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Not found. 找不到該貼文。"
+    } */
+    /* #swagger.responses[401] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Unauthorized. 無效或缺少token。"
+    } */
+    /* #swagger.responses[500] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Internal server error."
+    } */ 
+    isAuth, handleErrorAsync(async(req, res, next) => {
     const _id = req.params.id;
     const post = await Post.findOneAndUpdate(
         { _id },
@@ -154,7 +497,56 @@ router.delete('/:id/likes', isAuth, handleErrorAsync(async(req, res, next) => {
 }));
 
 /* POST in comment*/
-router.post('/:id/comment', isAuth, handleErrorAsync(async(req, res, next) => {
+router.post('/:id/comment',
+    /* 	#swagger.tags = ['Comment']
+        #swagger.description = '新增留言' */
+    /* #swagger.parameters['id'] = {
+        in: 'path',
+        description: '貼文的ID',
+        required: true,
+        type: 'string'
+    } */
+    /* #swagger.parameters['obj'] = {
+        in: 'body',
+        description: '留言的內容',
+        required: true,
+        schema: {
+            "comment": "string"
+        }
+    } */
+    /* #swagger.responses[201] = { 
+        schema: {
+            "message": "string",
+            "data": {
+                "_id": "string",
+                "post": "string",
+                "user": "string",
+                "comment": "string",
+                "createdAt": "string",
+                "updatedAt": "string"
+            }
+        },
+        description: "新增成功"
+    } */
+    /* #swagger.responses[400] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Bad request. 留言內容不可為空。"
+    } */
+    /* #swagger.responses[401] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Unauthorized. 無效或缺少token。"
+    } */
+    /* #swagger.responses[500] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Internal server error."
+    } */ 
+    isAuth, handleErrorAsync(async(req, res, next) => {
     const user = req.user.id;
     const post = req.params.id;
     const { comment }= req.body;
@@ -171,7 +563,60 @@ router.post('/:id/comment', isAuth, handleErrorAsync(async(req, res, next) => {
 }));
 
 /* GET posts list*/
-router.get('/user/:id', handleErrorAsync(async(req, res, next) => {
+router.get('/user/:id',
+    /* 	#swagger.tags = ['Post']
+        #swagger.description = '獲取用戶貼文列表' */
+    /* #swagger.parameters['id'] = {
+        in: 'path',
+        description: '用戶的ID',
+        required: true,
+        type: 'string'
+    } */
+    /* #swagger.responses[200] = { 
+        schema: {
+            "message": "string",
+            "data": {
+                "results": "number",
+                "posts": [
+                    {
+                        "_id": "string",
+                        "content": "string",
+                        "user": {
+                            "_id": "string",
+                            "name": "string",
+                            "photo": "string"
+                        },
+                        "comments": [
+                            {
+                                "_id": "string",
+                                "comment": "string",
+                                "user": {
+                                    "_id": "string",
+                                    "name": "string"
+                                }
+                            }
+                        ],
+                        "createdAt": "string",
+                        "updatedAt": "string"
+                    }
+                ]
+            }
+        },
+        description: "獲取用戶貼文列表成功"
+    } */
+    /* #swagger.responses[404] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Not found. 找不到指定用戶的貼文。"
+    } */
+    /* #swagger.responses[500] = {
+        schema: {
+            "error": "string"
+        },
+        description: "Internal server error."
+    } */ 
+    handleErrorAsync(async(req, res, next) => {
     const user = req.params.id;
     const posts = await Post.find({user}).populate({
         path: 'comments',
