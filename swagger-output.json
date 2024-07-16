@@ -8,8 +8,16 @@
   "host": "week4-5eud.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
+  "securityDefinitions": {
+    "apiKeyAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization",
+      "description": "請加上 Bearer 'Token' 以取得授權"
+    }
+  },
   "paths": {
     "/users/sign_up": {
       "post": {

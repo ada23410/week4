@@ -5,7 +5,17 @@ const doc = {
     title: 'Social',
     description: 'Description'
   },
-  host: 'week4-5eud.onrender.com'
+  host: 'week4-5eud.onrender.com',
+  basePath: "/",
+  schemes: ["https"],
+  securityDefinitions: {
+    apiKeyAuth: {
+      type: "apiKey",
+      in: "header",
+      name: "Authorization",
+      description: "請加上 Bearer 'Token' 以取得授權",
+    },
+  },
 };
 
 const outputFile = './swagger-output.json';
