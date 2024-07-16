@@ -131,6 +131,13 @@
         "description": "登入功能",
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Optional pre-authentication token",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "obj",
             "in": "body",
             "description": "登入功能",

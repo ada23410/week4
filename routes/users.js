@@ -98,6 +98,12 @@ router.post('/sign_up',
 router.post('/sign_in',
     /* 	#swagger.tags = ['User']
         #swagger.description = '登入功能' */
+    /*  #swagger.parameters['auth'] = {
+        in: 'header',
+        name: 'Authorization',
+        description: 'Optional pre-authentication token',
+        required: false
+    } */
     /*	#swagger.parameters['obj'] = {
           in: 'body',
           description: '登入功能',
