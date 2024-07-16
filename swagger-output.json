@@ -224,10 +224,8 @@
         "description": "檢視個人資料",
         "parameters": [
           {
-            "name": "Authorization",
+            "name": "authorization",
             "in": "header",
-            "description": "Access token required for authentication",
-            "required": true,
             "type": "string"
           }
         ],
@@ -285,7 +283,12 @@
             },
             "description": "Internal server error."
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       },
       "patch": {
         "tags": [
@@ -294,10 +297,8 @@
         "description": "編輯個人資料",
         "parameters": [
           {
-            "name": "Authorization",
+            "name": "authorization",
             "in": "header",
-            "description": "Access token required for authentication",
-            "required": true,
             "type": "string"
           },
           {
@@ -389,7 +390,12 @@
             },
             "description": "Internal server error."
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/users/updatePassword": {
@@ -400,10 +406,8 @@
         "description": "修改密碼功能",
         "parameters": [
           {
-            "name": "Authorization",
+            "name": "authorization",
             "in": "header",
-            "description": "Access token required for authentication",
-            "required": true,
             "type": "string"
           },
           {
@@ -487,7 +491,12 @@
             },
             "description": "Internal server error."
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/users/getLikeList": {
@@ -498,10 +507,8 @@
         "description": "獲取個人喜歡列表",
         "parameters": [
           {
-            "name": "Authorization",
+            "name": "authorization",
             "in": "header",
-            "description": "Access token required for authentication",
-            "required": true,
             "type": "string"
           }
         ],
@@ -584,7 +591,12 @@
             },
             "description": "Internal server error."
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/users/{id}/follow": {
@@ -602,10 +614,8 @@
             "description": "被追蹤用戶的ID"
           },
           {
-            "name": "Authorization",
+            "name": "authorization",
             "in": "header",
-            "description": "Access token required for authentication",
-            "required": true,
             "type": "string"
           }
         ],
@@ -670,7 +680,12 @@
             },
             "description": "Internal server error."
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/users/{id}/unfollow": {
@@ -688,10 +703,8 @@
             "description": "被取消追蹤用戶的ID"
           },
           {
-            "name": "Authorization",
+            "name": "authorization",
             "in": "header",
-            "description": "Access token required for authentication",
-            "required": true,
             "type": "string"
           }
         ],
@@ -756,7 +769,12 @@
             },
             "description": "Internal server error."
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/users/following": {
@@ -767,10 +785,8 @@
         "description": "獲取個人追蹤列表",
         "parameters": [
           {
-            "name": "Authorization",
+            "name": "authorization",
             "in": "header",
-            "description": "Access token required for authentication",
-            "required": true,
             "type": "string"
           }
         ],
@@ -851,7 +867,12 @@
             },
             "description": "Internal server error."
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/posts/": {
@@ -862,10 +883,8 @@
         "description": "取得所有貼文",
         "parameters": [
           {
-            "name": "Authorization",
+            "name": "authorization",
             "in": "header",
-            "description": "Access token required for authentication",
-            "required": true,
             "type": "string"
           },
           {
@@ -1004,7 +1023,12 @@
             },
             "description": "Internal server error."
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -1013,10 +1037,8 @@
         "description": "新增單筆貼文",
         "parameters": [
           {
-            "name": "Authorization",
+            "name": "authorization",
             "in": "header",
-            "description": "Access token required for authentication",
-            "required": true,
             "type": "string"
           },
           {
@@ -1173,7 +1195,12 @@
             },
             "description": "Internal server error."
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/posts/{id}": {
@@ -1191,10 +1218,8 @@
             "description": "貼文的ID"
           },
           {
-            "name": "Authorization",
+            "name": "authorization",
             "in": "header",
-            "description": "Access token required for authentication",
-            "required": true,
             "type": "string"
           }
         ],
@@ -1326,7 +1351,12 @@
             },
             "description": "Internal server error."
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/posts/posts": {
@@ -1658,10 +1688,8 @@
             "description": "貼文的ID"
           },
           {
-            "name": "Authorization",
+            "name": "authorization",
             "in": "header",
-            "description": "Access token required for authentication",
-            "required": true,
             "type": "string"
           }
         ],
@@ -1739,7 +1767,12 @@
             },
             "description": "Internal server error."
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -1755,10 +1788,8 @@
             "description": "貼文的ID"
           },
           {
-            "name": "Authorization",
+            "name": "authorization",
             "in": "header",
-            "description": "Access token required for authentication",
-            "required": true,
             "type": "string"
           }
         ],
@@ -1836,7 +1867,12 @@
             },
             "description": "Internal server error."
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/posts/{id}/comment": {
@@ -1854,10 +1890,8 @@
             "description": "貼文的ID"
           },
           {
-            "name": "Authorization",
+            "name": "authorization",
             "in": "header",
-            "description": "Access token required for authentication",
-            "required": true,
             "type": "string"
           },
           {
@@ -1966,7 +2000,12 @@
             },
             "description": "Internal server error."
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     },
     "/posts/user/{id}": {
@@ -2120,10 +2159,8 @@
         "description": "檔案上傳功能",
         "parameters": [
           {
-            "name": "Authorization",
+            "name": "authorization",
             "in": "header",
-            "description": "Access token required for authentication",
-            "required": true,
             "type": "string"
           },
           {
@@ -2189,7 +2226,12 @@
             },
             "description": "Internal server error. 上傳失敗。"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     }
   }

@@ -14,13 +14,9 @@ const {isAuth,generateSendJWT} = require('../service/auth');
 router.post('/file',
     /*  #swagger.tags = ['File']
         #swagger.description = '檔案上傳功能' */
-    /*  #swagger.parameters['authorization'] = {
-        in: 'header',
-        name: 'Authorization',
-        description: 'Access token required for authentication',
-        required: true,
-        type: 'string'
-    } */
+    /* #swagger.security = [{
+            "apiKeyAuth": []
+    }] */
     /* #swagger.parameters['file'] = {
         in: 'formData',
         description: '要上傳的檔案',

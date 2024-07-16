@@ -158,13 +158,9 @@ router.post('/sign_in',
 router.get('/profile',
     /* 	#swagger.tags = ['User']
         #swagger.description = '檢視個人資料' */
-    /*  #swagger.parameters['authorization'] = {
-        in: 'header',
-        name: 'Authorization',
-        description: 'Access token required for authentication',
-        required: true,
-        type: 'string'
-    } */
+    /* #swagger.security = [{
+            "apiKeyAuth": []
+    }] */
   /* #swagger.responses[200] = { 
       schema: {
           "name": "string",
@@ -197,13 +193,9 @@ router.get('/profile',
 router.patch('/profile',
   /* 	#swagger.tags = ['User']
       #swagger.description = '編輯個人資料' */
-    /*  #swagger.parameters['authorization'] = {
-        in: 'header',
-        name: 'Authorization',
-        description: 'Access token required for authentication',
-        required: true,
-        type: 'string'
-    } */
+     /* #swagger.security = [{
+            "apiKeyAuth": []
+    }] */
   /*	#swagger.parameters['obj'] = {
         in: 'body',
         description: '編輯個人資料',
@@ -270,13 +262,9 @@ router.patch('/profile',
 router.post('/updatePassword',
     /* 	#swagger.tags = ['User']
         #swagger.description = '修改密碼功能' */
-    /*  #swagger.parameters['authorization'] = {
-        in: 'header',
-        name: 'Authorization',
-        description: 'Access token required for authentication',
-        required: true,
-        type: 'string'
-    } */
+    /* #swagger.security = [{
+            "apiKeyAuth": []
+    }] */
     /*	#swagger.parameters['obj'] = {
           in: 'body',
           description: '修改密碼功能',
@@ -344,13 +332,9 @@ router.post('/updatePassword',
 router.get('/getLikeList',
   /*  #swagger.tags = ['User']
       #swagger.description = '獲取個人喜歡列表' */
-    /*  #swagger.parameters['authorization'] = {
-        in: 'header',
-        name: 'Authorization',
-        description: 'Access token required for authentication',
-        required: true,
-        type: 'string'
-    } */
+    /* #swagger.security = [{
+            "apiKeyAuth": []
+    }] */
   /* #swagger.responses[200] = { 
       schema: {
           "message": "string",
@@ -395,13 +379,9 @@ router.get('/getLikeList',
 router.post('/:id/follow',
   /*  #swagger.tags = ['User']
       #swagger.description = '追蹤好友' */
-    /*  #swagger.parameters['authorization'] = {
-        in: 'header',
-        name: 'Authorization',
-        description: 'Access token required for authentication',
-        required: true,
-        type: 'string'
-    } */
+    /* #swagger.security = [{
+            "apiKeyAuth": []
+    }] */
   /* #swagger.parameters['id'] = {
         in: 'path',
         description: '被追蹤用戶的ID',
@@ -465,13 +445,9 @@ router.post('/:id/follow',
 router.delete('/:id/unfollow',
   /*  #swagger.tags = ['User']
       #swagger.description = '取消追蹤好友' */
-   /*  #swagger.parameters['authorization'] = {
-        in: 'header',
-        name: 'Authorization',
-        description: 'Access token required for authentication',
-        required: true,
-        type: 'string'
-    } */
+    /* #swagger.security = [{
+            "apiKeyAuth": []
+    }] */
   /* #swagger.parameters['id'] = {
         in: 'path',
         description: '被取消追蹤用戶的ID',
@@ -530,13 +506,9 @@ router.delete('/:id/unfollow',
 router.get('/following',
   /*  #swagger.tags = ['User']
       #swagger.description = '獲取個人追蹤列表' */
-    /*  #swagger.parameters['authorization'] = {
-        in: 'header',
-        name: 'Authorization',
-        description: 'Access token required for authentication',
-        required: true,
-        type: 'string'
-    } */
+     /* #swagger.security = [{
+            "apiKeyAuth": []
+    }] */
   /* #swagger.responses[200] = { 
       schema: {
           "message": "string",
