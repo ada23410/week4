@@ -14,8 +14,8 @@ const doc = {
       in: "header",
       name: "Authorization",
       description: "請加上 Bearer 'Token' 以取得授權",
-    },
-  },
+    }
+  }
 };
 
 const outputFile = './swagger-output.json';
