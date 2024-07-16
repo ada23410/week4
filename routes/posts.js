@@ -12,6 +12,13 @@ const {isAuth,generateSendJWT} = require('../service/auth');
 router.get('/',
     /* 	#swagger.tags = ['Post']
         #swagger.description = '取得所有貼文' */
+    /*  #swagger.parameters['authorization'] = {
+        in: 'header',
+        name: 'Authorization',
+        description: 'Access token required for authentication',
+        required: true,
+        type: 'string'
+    } */
     /* #swagger.parameters['timeSort'] = {
         in: 'query',
         description: '時間排序，asc 為遞增，desc 為遞減',
@@ -90,6 +97,13 @@ router.get('/',
 router.get('/:id',
     /* 	#swagger.tags = ['Post']
         #swagger.description = '取得單一貼文' */
+    /*  #swagger.parameters['authorization'] = {
+        in: 'header',
+        name: 'Authorization',
+        description: 'Access token required for authentication',
+        required: true,
+        type: 'string'
+    } */
     /* #swagger.parameters['id'] = {
         in: 'path',
         description: '貼文的ID',
@@ -160,8 +174,15 @@ router.get('/:id',
 
 /* POST only post*/
 router.post('/',
-     /* 	#swagger.tags = ['Post']
+    /* 	#swagger.tags = ['Post']
         #swagger.description = '新增單筆貼文' */
+    /*  #swagger.parameters['authorization'] = {
+        in: 'header',
+        name: 'Authorization',
+        description: 'Access token required for authentication',
+        required: true,
+        type: 'string'
+    } */
     /*	#swagger.parameters['obj'] = {
           in: 'body',
           description: '新增貼文的資料',
@@ -394,6 +415,13 @@ router.patch('/post/:id',
 router.post('/:id/likes',
     /* 	#swagger.tags = ['Post']
         #swagger.description = '對貼文按讚' */
+    /*  #swagger.parameters['authorization'] = {
+        in: 'header',
+        name: 'Authorization',
+        description: 'Access token required for authentication',
+        required: true,
+        type: 'string'
+    } */
     /* #swagger.parameters['id'] = {
         in: 'path',
         description: '貼文的ID',
@@ -448,6 +476,13 @@ router.post('/:id/likes',
 router.delete('/:id/likes',
     /* 	#swagger.tags = ['Post']
         #swagger.description = '取消按讚' */
+    /*  #swagger.parameters['authorization'] = {
+        in: 'header',
+        name: 'Authorization',
+        description: 'Access token required for authentication',
+        required: true,
+        type: 'string'
+    } */
     /* #swagger.parameters['id'] = {
         in: 'path',
         description: '貼文的ID',
@@ -500,6 +535,13 @@ router.delete('/:id/likes',
 router.post('/:id/comment',
     /* 	#swagger.tags = ['Comment']
         #swagger.description = '新增留言' */
+    /*  #swagger.parameters['authorization'] = {
+        in: 'header',
+        name: 'Authorization',
+        description: 'Access token required for authentication',
+        required: true,
+        type: 'string'
+    } */
     /* #swagger.parameters['id'] = {
         in: 'path',
         description: '貼文的ID',
