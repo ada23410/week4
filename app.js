@@ -17,7 +17,15 @@ const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
 const uploadRouter = require('./routes/upload');
 const app = express();
-app.use('/api-docs', cors(), swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+const corsOptions = {
+    origin: '*',  // 或使用 '*' 允許所有來源
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204
+  }
+  
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // 程式出現重大錯誤時
 process.on('uncaughtException', err => {
@@ -40,7 +48,7 @@ mongoose.connect(DB)
 
 
 // 使用cors
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use(logger('dev'));
 app.use(express.json());
