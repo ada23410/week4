@@ -17,14 +17,6 @@ const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
 const uploadRouter = require('./routes/upload');
 const app = express();
-
-const corsOptions = {
-    origin: '*',  // 或使用 '*' 允許所有來源
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    preflightContinue: false,
-    optionsSuccessStatus: 204
-  }
-  
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // 程式出現重大錯誤時
@@ -48,7 +40,11 @@ mongoose.connect(DB)
 
 
 // 使用cors
-app.use(cors(corsOptions));
+app.use(cors({
+    origin: '*',  // 允许所有来源
+    methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'api_key', 'Authorization']
+}));
 
 app.use(logger('dev'));
 app.use(express.json());
