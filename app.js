@@ -17,7 +17,7 @@ const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
 const uploadRouter = require('./routes/upload');
 const app = express();
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', cors(), swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // 程式出現重大錯誤時
 process.on('uncaughtException', err => {
