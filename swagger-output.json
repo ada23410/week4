@@ -5,7 +5,7 @@
     "description": "Description",
     "version": "1.0.0"
   },
-  "host": "http://week4-5eud.onrender.com",
+  "host": "week4-5eud.onrender.com",
   "basePath": "/",
   "schemes": [
     "http"
