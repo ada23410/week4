@@ -5,7 +5,7 @@ const doc = {
     title: 'Social',
     description: 'Description'
   },
-  host: 'localhost:3000'
+  host: 'https://week4-5eud.onrender.com'
 };
 
 const outputFile = './swagger-output.json';
