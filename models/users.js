@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema(
             required: [true, '請輸入您的名字']
         },
         email: {
-        type: String,
+            type: String,
             required: [true, '請輸入您的 Email'],
             unique: true,
             lowercase: true,

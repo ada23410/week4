@@ -12,12 +12,12 @@ const commentsSchema = new mongoose.Schema(
         },
         user: {
             type: mongoose.Schema.ObjectId,
-            ref: 'user',
+            ref: 'User',
             required: [true , '用戶必須依據貼文']
         },
         post: {
             type: mongoose.Schema.ObjectId,
-            ref: 'post',
+            ref: 'Post',
             required: [true , '留言必須依據貼文']
         }
     },
