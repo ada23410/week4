@@ -46,13 +46,11 @@ router.post('/file',
     } */
     isAuth ,upload , handleErrorAsync(async (req, res, next)=> {
     upload(req, res, function (err) {
-        if (err instanceof multer.MulterError) {
+        if (err) {
             if (err.code === 'LIMIT_FILE_SIZE') {
                 return next(appError(400, '檔案大小超過 2MB', next));
             }
-            return next(appError(400, '檔案上傳失敗', next));
-        } else if (err) {
-            return next(appError(400, err.message, next));
+            return next(appError(400, err.message || '檔案上傳失敗', next));
         }
 
         // 是否有上傳檔案
