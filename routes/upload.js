@@ -51,14 +51,6 @@ router.post('/file',
     }, handleErrorAsync(async (req, res, next)=> {
             console.log('After multer - Request body:', req.body);
             console.log('After multer - Request files:', req.files);
-            // if (err instanceof multer.MulterError) {
-            //     if (err.code === 'LIMIT_FILE_SIZE') {
-            //         return next(appError(400, '檔案大小超過 2MB', next));
-            //     }
-            //     return next(appError(400, '檔案上傳失敗', next));
-            // } else if (err) {
-            //     return next(appError(400, err.message, next));
-            // }
 
             // 是否有上傳檔案
             if (!req.files.length) {
