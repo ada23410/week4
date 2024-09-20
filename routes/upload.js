@@ -44,12 +44,13 @@ router.post('/file',
         },
         description: "Internal server error. 上傳失敗。"
     } */
-    isAuth , (req, res, next) => {
+    isAuth ,upload , (req, res, next) => {
         console.log('Before multer - Request body:', req.body);
         console.log('Before multer - Request files:', req.files);
         next();
     }, handleErrorAsync(async (req, res, next)=> {
-        upload(req, res, async function (err) {  
+            console.log('After multer - Request body:', req.body);
+            console.log('After multer - Request files:', req.files);
             if (err instanceof multer.MulterError) {
                 if (err.code === 'LIMIT_FILE_SIZE') {
                     return next(appError(400, '檔案大小超過 2MB', next));
@@ -94,7 +95,6 @@ router.post('/file',
 
         // 將檔案的 buffer 寫入 blobStream
         blobStream.end(file.buffer);
-    });
 }));
 
 module.exports = router;
