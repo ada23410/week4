@@ -12,7 +12,10 @@ const userSchema = new mongoose.Schema(
             unique: true,
             lowercase: true,
         },
-        photo: String,
+        photo:  {
+            type: String,
+            default: '' // 可以設置一個默認的頭像 URL
+        },
         sex: {
             type: String,
             enum: ['male','female','other'],
