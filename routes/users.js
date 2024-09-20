@@ -185,7 +185,8 @@ router.get('/profile',
   appSuccess(res, 200, '檢視個人資料成功！', {
     name: req.user.name,
     email: req.user.email,
-    sex: req.user.sex
+    sex: req.user.sex,
+    photo: req.user.photo
   });
 }));
 
