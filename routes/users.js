@@ -202,14 +202,16 @@ router.patch('/profile',
         required: true,
         schema: {
             "name": "string",
-            "sex": "string"
+            "sex": "string",
+            "photo": "string"
       }
   } */ 
   /* #swagger.responses[200] = { 
       schema: {
           "name": "string",
           "email": "string",
-          "sex": "string"
+          "sex": "string",
+          "photo": "string"
       },
       description: "更新個人資料成功！"
   } */
@@ -236,14 +238,14 @@ router.patch('/profile',
   const { name, sex } = req.body;
 
   // 檢查是否提供了name或sex
-  if (!name && !sex) {
+  if (!name && !sex && !photo) {
     return next(appError(400, '必須提供至少一個要更新的內容'));
   }
 
   // 更新用戶資料
   const updatedUser = await User.findByIdAndUpdate(
     req.user.id,
-    { name, sex },
+    { name, sex, photo },
     { new: true, runValidators: true }
   );
 
@@ -254,7 +256,8 @@ router.patch('/profile',
   appSuccess(res, 200, '更新個人資料成功！', {
     name: updatedUser.name,
     email: updatedUser.email,
-    sex: updatedUser.sex
+    sex: updatedUser.sex,
+    photo: updatedUser.photo
   });
 }));
 
