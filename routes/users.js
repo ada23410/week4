@@ -235,7 +235,7 @@ router.patch('/profile',
   } */  
   isAuth, handleErrorAsync(async (req, res, next) => {
 
-  const { name, sex } = req.body;
+  const { name, sex, photo } = req.body;
 
   // 檢查是否提供了name或sex
   if (!name && !sex && !photo) {
