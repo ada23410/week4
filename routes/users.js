@@ -546,7 +546,7 @@ router.get('/following',
   isAuth, handleErrorAsync(async(req, res, next) =>{
   const user = await User.findById(req.user.id).populate({
     path: 'following.user',
-    select: 'name _id'
+    select: 'name _id photo'
   })
   if (!user) {
       return next(appError(404, '找不到用戶', next));
