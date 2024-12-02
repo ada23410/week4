@@ -313,6 +313,7 @@ router.get('/profile/:id',
     } */ 
     isAuth, handleErrorAsync(async (req, res, next) => {
         const userId = req.params.id;
+        console.log('Requested User ID:', req.params.id);
 
         // 查找目標用戶
         const user = await User.findById(userId).select('name photo').populate([
@@ -323,16 +324,11 @@ router.get('/profile/:id',
             { 
                 path: 'following.user', 
                 select: 'name photo' 
-            },
-            {
-                path: 'likes.posts',
-                populate: { 
-                    path: 'user', // 獲取貼文發布者信息
-                    select: 'name photo'
-                },
-                select: 'content image' // 返回貼文的內容和圖片
             }
         ]);
+
+        console.log('Followers:', user.followers);
+        console.log('Following:', user.following);
 
         if (!user) {
             return next(appError(404, '用戶不存在'));
@@ -356,15 +352,7 @@ router.get('/profile/:id',
             following: user.following.map(f => ({
                 name: f.user.name,
                 photo: f.user.photo
-            })), // 可選返回完整正在追蹤信息
-            likes: user.likes.posts.map(post => ({
-                content: post.content,
-                image: post.image,
-                user: {
-                    name: post.user.name,
-                    photo: post.user.photo
-                }
-            })) // 喜歡的貼文數據
+            }))
         });
     })
 );
