@@ -583,14 +583,26 @@ router.post('/:id/comment',
     appSuccess(res, 201, '新增成功', newComment);
 }));
 
-/* GET posts list*/
+/* GET posts list */
 router.get('/user/:id',
-    /* 	#swagger.tags = ['Post']
-        #swagger.description = '獲取用戶貼文列表' */
+    /*  #swagger.tags = ['Post']
+        #swagger.description = '獲取用戶貼文列表（支持排序和關鍵字搜尋）' */
     /* #swagger.parameters['id'] = {
         in: 'path',
         description: '用戶的ID',
         required: true,
+        type: 'string'
+    } */
+    /* #swagger.parameters['timeSort'] = {
+        in: 'query',
+        description: '時間排序，asc 為遞增，desc 為遞減',
+        required: false,
+        type: 'string'
+    } */
+    /* #swagger.parameters['q'] = {
+        in: 'query',
+        description: '搜尋關鍵字',
+        required: false,
         type: 'string'
     } */
     /* #swagger.responses[200] = { 
@@ -637,19 +649,32 @@ router.get('/user/:id',
         },
         description: "Internal server error."
     } */ 
-    handleErrorAsync(async(req, res, next) => {
-    const user = req.params.id;
-    const posts = await Post.find({user})
-    .populate({
-        path: 'user',
-        select: 'name photo',
-    })
-    .populate({
-        path: 'comments',
-        select: 'comment user createdAt'
-    });
+    handleErrorAsync(async (req, res, next) => {
+        // 解析時間排序和搜尋關鍵字
+        const timeSort = req.query.timeSort === "asc" ? "createdAt" : "-createdAt"; // 預設降序
+        const q = req.query.q ? { content: new RegExp(req.query.q, "i") } : {}; // 搜尋關鍵字，忽略大小寫
+        const user = req.params.id; // 用戶 ID
 
-    appSuccess(res, 200, 'success', { results: posts.length, posts })
-}))
+        // 查詢貼文
+        const posts = await Post.find({ user, ...q }) // 將用戶 ID 和關鍵字條件結合
+            .populate({
+                path: 'user',
+                select: 'name photo',
+            })
+            .populate({
+                path: 'comments',
+                select: 'comment user createdAt',
+            })
+            .sort(timeSort); // 按時間排序
+
+        // 檢查是否有貼文
+        if (posts.length === 0) {
+            return next(appError(404, '找不到貼文'));
+        }
+
+        // 返回結果
+        appSuccess(res, 200, 'success', { results: posts.length, posts });
+    })
+);
 
 module.exports = router;
