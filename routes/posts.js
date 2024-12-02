@@ -149,12 +149,13 @@ router.get('/:id',
     } */ 
     isAuth, handleErrorAsync(async(req, res, next) => {
     const id = req.params.id;
-    const post = await Post.findById(id).populate({
+    const post = await Post.findById(id)
+    .populate({
         path: 'user',
         select: 'name photo'
     }).populate({
         path: 'commentsV',
-        select: 'comment user'
+        select: 'comment user createdAt'
     });
 
     if (!post) {
@@ -577,6 +578,8 @@ router.post('/:id/comment',
         user,
         comment
     });
+    // 更新留言數量
+    await Post.findByIdAndUpdate(post, { $inc: { comments: 1 } });
     appSuccess(res, 201, '新增成功', newComment);
 }));
 
