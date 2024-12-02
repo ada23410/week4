@@ -24,12 +24,10 @@ const commentsSchema = new mongoose.Schema(
     {
         versionKey: false, // 去除資料庫欄位的__v
         toJSON: { 
-          virtual: true,
-          transform: transformId, 
+          virtual: true
         },
         toObject: { 
-          virtual: true,
-          transform: transformId, 
+          virtual: true
         }
     }
 );
