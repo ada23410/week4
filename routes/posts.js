@@ -79,7 +79,7 @@ router.get('/',
         select: 'name photo '
     }).populate({
         path: 'commentsV',
-        select: 'comment user'
+        select: 'comment user createdAt'
     }).sort(timeSort);
 
     if(posts.length === 0){
