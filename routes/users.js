@@ -183,6 +183,7 @@ router.get('/profile',
   } */
   isAuth, handleErrorAsync(async (req, res, next) => {
   appSuccess(res, 200, '檢視個人資料成功！', {
+    id: req.user.id,
     name: req.user.name,
     email: req.user.email,
     sex: req.user.sex,
