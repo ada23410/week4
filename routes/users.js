@@ -335,7 +335,7 @@ router.get('/profile/:id',
         ]);
 
         if (!user) {
-        return next(appError(404, '用戶不存在'));
+            return next(appError(404, '用戶不存在'));
         }
 
         // 計算追蹤者數量和正在追蹤的人數

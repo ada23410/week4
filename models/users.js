@@ -63,11 +63,7 @@ const userSchema = new mongoose.Schema(
                 posts: {
                     type: mongoose.Schema.ObjectId,
                     ref: 'Post',
-                },
-                createdAt: {
-                    type: Date,
-                    default: Date.now(),
-                },
+                }
             },
         ],
     },
@@ -83,6 +79,14 @@ const userSchema = new mongoose.Schema(
         },
     }
 );
+
+userSchema.virtual('followersCount').get(function () {
+    return this.followers.length;
+});
+
+userSchema.virtual('followingCount').get(function () {
+    return this.following.length;
+});
 
 const User = mongoose.model('User', userSchema);
 
