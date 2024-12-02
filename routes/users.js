@@ -325,6 +325,10 @@ router.get('/profile/:id',
                 path: 'following.user',
                 select: 'name photo',
             })
+            .populate({
+                path: 'likes.posts',
+                select: 'user',
+            })
 
 
         if (!user) {

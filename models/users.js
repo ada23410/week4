@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Post = require('../models/posts');
 const transformId = require('../service/transformId');
 
 const userSchema = new mongoose.Schema(
