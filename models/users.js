@@ -35,7 +35,10 @@ const userSchema = new mongoose.Schema(
         },
         followers: [
             {
-                user: { type: mongoose.Schema.ObjectId, ref: 'User'},
+                user: { 
+                    type: mongoose.Schema.ObjectId, 
+                    ref: 'User'
+                },
                 createdAt: {
                     type: Date,
                     default: Date.now
@@ -44,13 +47,28 @@ const userSchema = new mongoose.Schema(
         ],
         following: [
             {
-                user: { type: mongoose.Schema.ObjectId, ref: 'User'},
+                user: { 
+                    type: mongoose.Schema.ObjectId,
+                    ref: 'User'
+                },
                 createdAt: {
                     type: Date,
                     default: Date.now
                 }
             }
-        ]
+        ],
+        likes: [
+            {
+                posts: {
+                    type: mongoose.Schema.ObjectId,
+                    ref: 'Post',
+                },
+                createdAt: {
+                    type: Date,
+                    default: Date.now(),
+                },
+            },
+        ],
     },
     {
         versionKey: false, // 去除資料庫欄位的__v

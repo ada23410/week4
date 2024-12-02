@@ -380,6 +380,72 @@ router.get('/getLikeList',
   appSuccess(res, 200, 'success', likeList);
 }));
 
+/* Get other user's public profile */
+router.get('/:id',
+    /*  #swagger.tags = ['User']
+        #swagger.description = '獲取其他用戶的公開資料' */
+       /* #swagger.security = [{
+              "apiKeyAuth": []
+      }] */
+    /* #swagger.parameters['id'] = {
+          in: 'path',
+          description: '用戶的ID',
+          required: true,
+          type: 'string'
+    } */ 
+    /* #swagger.responses[200] = { 
+        schema: {
+            "message": "string",
+            "data": {
+                "_id": "string",
+                "name": "string",
+                "photo": "string",
+                "followersCount": "number",
+                "followingCount": "number"
+            }
+        },
+        description: "獲取用戶公開資料成功"
+    } */
+    /* #swagger.responses[404] = { 
+        schema: {
+            "error": "string"
+        },
+        description: "用戶不存在"
+    } */
+    /* #swagger.responses[500] = { 
+        schema: {
+            "error": "string"
+        },
+        description: "Internal server error."
+    } */ 
+    isAuth, handleErrorAsync(async (req, res, next) => {
+        const userId = req.params.id;
+
+        // 查找目標用戶
+        const user = await User.findById(userId).select('name photo').populate([
+        { path: 'followers.user', select: 'name' },
+        { path: 'following.user', select: 'name' }
+        ]);
+
+        if (!user) {
+        return next(appError(404, '用戶不存在'));
+        }
+
+        // 計算追蹤者數量和正在追蹤的人數
+        const followersCount = user.followers.length;
+        const followingCount = user.following.length;
+
+        // 返回公開資料
+        appSuccess(res, 200, 'success', {
+        _id: user._id,
+        name: user.name,
+        photo: user.photo,
+        followersCount,
+        followingCount
+        });
+    })
+);
+
 /* follow friend */
 router.post('/:id/follow',
   /*  #swagger.tags = ['User']
