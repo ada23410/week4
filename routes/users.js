@@ -316,46 +316,28 @@ router.get('/profile/:id',
         console.log('Requested User ID:', req.params.id);
 
         // 查找目標用戶
-        const user = await User.findById(userId).select('name photo').populate([
-            { 
-                path: 'followers.user', 
-                select: 'name photo' 
-            },
-            { 
-                path: 'following.user', 
-                select: 'name photo' 
-            }
-        ]);
+        const user = await User.findById(userId)
+            .populate({
+                path: 'followers.user',
+                select: 'name photo',
+            })
+            .populate({
+                path: 'following.user',
+                select: 'name photo',
+            })
 
-        console.log('Followers:', user.followers || []);
-        console.log('Following:', user.following || []);
 
         if (!user) {
             return next(appError(404, '用戶不存在'));
         }
 
-        const followers = user.followers || [];
-        const following = user.following || [];
-
-        // 計算追蹤者數量和正在追蹤的人數
-        const followersCount = user.followers.length;
-        const followingCount = user.following.length;
-
         // 返回公開資料
         appSuccess(res, 200, 'success', {
             _id: user._id,
-            name: user.name || '未知用戶',
-            photo: user.photo || 'https://example.com/default-photo.jpg',
-            followersCount,
-            followingCount,
-            followers: followers.map(f => ({
-                name: f.user?.name || '未知用戶',
-                photo: f.user?.photo || 'https://example.com/default-photo.jpg'
-            })),
-            following: following.map(f => ({
-                name: f.user?.name || '未知用戶',
-                photo: f.user?.photo || 'https://example.com/default-photo.jpg'
-            }))
+            name: user.name,
+            photo: user.photo,
+            followers: user.followers,
+            following: user.following
         });
     })
 );
