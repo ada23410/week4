@@ -327,12 +327,15 @@ router.get('/profile/:id',
             }
         ]);
 
-        console.log('Followers:', user.followers);
-        console.log('Following:', user.following);
+        console.log('Followers:', user.followers || []);
+        console.log('Following:', user.following || []);
 
         if (!user) {
             return next(appError(404, '用戶不存在'));
         }
+
+        const followers = user.followers || [];
+        const following = user.following || [];
 
         // 計算追蹤者數量和正在追蹤的人數
         const followersCount = user.followers.length;
@@ -341,17 +344,17 @@ router.get('/profile/:id',
         // 返回公開資料
         appSuccess(res, 200, 'success', {
             _id: user._id,
-            name: user.name,
-            photo: user.photo,
+            name: user.name || '未知用戶',
+            photo: user.photo || 'https://example.com/default-photo.jpg',
             followersCount,
             followingCount,
-            followers: user.followers.map(f => ({
-                name: f.user.name,
-                photo: f.user.photo
-            })), // 可選返回完整追蹤者信息
-            following: user.following.map(f => ({
-                name: f.user.name,
-                photo: f.user.photo
+            followers: followers.map(f => ({
+                name: f.user?.name || '未知用戶',
+                photo: f.user?.photo || 'https://example.com/default-photo.jpg'
+            })),
+            following: following.map(f => ({
+                name: f.user?.name || '未知用戶',
+                photo: f.user?.photo || 'https://example.com/default-photo.jpg'
             }))
         });
     })
