@@ -639,9 +639,14 @@ router.get('/user/:id',
     } */ 
     handleErrorAsync(async(req, res, next) => {
     const user = req.params.id;
-    const posts = await Post.find({user}).populate({
+    const posts = await Post.find({user})
+    .populate({
+        path: 'user',
+        select: 'name photo',
+    })
+    .populate({
         path: 'comments',
-        select: 'comment user'
+        select: 'comment user createdAt'
     });
 
     appSuccess(res, 200, 'success', { results: posts.length, posts })

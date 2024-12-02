@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const transformId = require('../service/transformId');
 
 const postSchema = new mongoose.Schema(
     {
@@ -45,10 +46,12 @@ const postSchema = new mongoose.Schema(
     {
         versionKey: false, // 去除資料庫欄位的__v
         toJSON: { 
-          virtuals: true
+          virtuals: true,
+          transform: transformId
         },
         toObject: { 
-          virtuals: true
+          virtuals: true,
+          transform: transformId
         }
     }
 );
