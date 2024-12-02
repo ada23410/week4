@@ -341,7 +341,8 @@ router.get('/profile/:id',
             name: user.name,
             photo: user.photo,
             followers: user.followers,
-            following: user.following
+            following: user.following,
+            likes: user.likes,
         });
     })
 );
