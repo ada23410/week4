@@ -44,8 +44,14 @@ const postSchema = new mongoose.Schema(
     },
     {
         versionKey: false, // 去除資料庫欄位的__v
-        toJSON: { virtual: true },
-        toObject: { virtual: true }
+        toJSON: { 
+          virtuals: true,
+          transform: transformId,
+        },
+        toObject: { 
+          virtuals: true,
+          transform: transformId,
+        }
     }
 );
 
