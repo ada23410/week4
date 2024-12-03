@@ -455,7 +455,7 @@ router.get('/getLikeList',
   } */ 
   isAuth, handleErrorAsync(async(req, res, next) => {
   const likeList = await Post.find({
-    likes: { $in: [req.user.id] }
+    "likes.user": req.user.id 
   }).populate({
     path: "user",
     select: "name _id"

@@ -513,7 +513,13 @@ router.delete('/:id/likes',
     const _id = req.params.id;
     const post = await Post.findOneAndUpdate(
         { _id },
-        { $addToSet: { likes: req.user.id } }
+        { 
+            $addToSet: { 
+                likes: { 
+                    user: req.user.id
+                } 
+            } 
+        },
     );
 
     if (!post) {
