@@ -445,9 +445,20 @@ router.post('/:id/likes',
     const _id = req.params.id;
 
         const post = await Post.findOneAndUpdate(
-            { _id },
-            { $addToSet: { likes: req.user.id } },
-            { new: true } 
+            { 
+                _id 
+            },
+            { 
+                $addToSet: { 
+                    likes: { 
+                        user: req.user.id, 
+                        createdAt: new Date() 
+                    } 
+                } 
+            },
+            { 
+                new: true 
+            } 
         );
 
         if (!post) {
