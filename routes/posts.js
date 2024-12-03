@@ -511,20 +511,14 @@ router.delete('/:id/likes',
     } */ 
     isAuth, handleErrorAsync(async(req, res, next) => {
     const _id = req.params.id;
+    if (!postId) {
+        return next(appError(400, '缺少貼文 ID'));
+    }
+    
     const post = await Post.findOneAndUpdate(
-        { 
-            _id: postId 
-        },
-        { 
-            $pull: { 
-                likes: { 
-                    user: req.user.id 
-                } 
-            } 
-        }, // 移除按讚
-        { 
-            new: true 
-        }
+        { _id },
+        { $pull: { likes: { user: req.user.id }}},
+        { new: true }
     );
 
     if (!post) {
