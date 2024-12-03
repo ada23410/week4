@@ -468,7 +468,7 @@ router.post('/:id/likes',
         appSuccess(res, 201, '按讚成功', { postId: _id, userId: req.user.id });
 }));
 
-/* POST in unlike*/
+/* DELETE to unlike a post */
 router.delete('/:id/likes',
     /* 	#swagger.tags = ['Post']
         #swagger.description = '取消按讚' */
@@ -509,19 +509,30 @@ router.delete('/:id/likes',
         },
         description: "Internal server error."
     } */ 
-    isAuth, handleErrorAsync(async(req, res, next) => {
-    const _id = req.params.id;
-    const post = await Post.findOneAndUpdate(
-        { _id },
-        { $addToSet: { likes: req.user.id } }
-    );
+    isAuth, handleErrorAsync(async (req, res, next) => {
+        const postId = req.params.id;
 
-    if (!post) {
-        return next(appError(404, '找不到該貼文'));
-    }
+        if (!postId) {
+            return next(appError(400, '缺少貼文 ID'));
+        }
 
-    appSuccess(res, 201, '取消按讚成功', { postId: _id, userId: req.user.id });
-}));
+        const userId = req.user.id;
+
+        // 使用 $pull 移除 likes 陣列中的指定用戶
+        const post = await Post.findOneAndUpdate(
+            { _id: postId },
+            { $pull: { likes: { user: userId } } }, // 移除特定用戶的按讚記錄
+            { new: true }
+        );
+
+        if (!post) {
+            return next(appError(404, '找不到該貼文'));
+        }
+
+        appSuccess(res, 200, '取消按讚成功', { postId, userId });
+    })
+);
+
 
 /* POST in comment*/
 router.post('/:id/comment',
