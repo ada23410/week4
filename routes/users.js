@@ -419,50 +419,54 @@ router.post('/updatePassword',
 
 /* get personal like list */
 router.get('/getLikeList',
-  /*  #swagger.tags = ['User']
-      #swagger.description = '獲取個人喜歡列表' */
-    /* #swagger.security = [{
-            "apiKeyAuth": []
-    }] */
-  /* #swagger.responses[200] = { 
-      schema: {
-          "message": "string",
-          "data": [
-              {
-                  "_id": "string",
-                  "title": "string",
-                  "content": "string",
-                  "user": {
-                      "_id": "string",
-                      "name": "string"
-                  }
-              }
-          ]
-      },
-      description: "獲取個人喜歡列表成功"
-  } */
-  /* #swagger.responses[401] = { 
-      schema: {
-          "error": "string"
-      },
-      description: "Unauthorized. Invalid or missing token."
-  } */
-  /* #swagger.responses[500] = { 
-      schema: {
-          "error": "string"
-      },
-      description: "Internal server error."
-  } */ 
-  isAuth, handleErrorAsync(async(req, res, next) => {
-  const likeList = await Post.find({
-    "likes.user": req.user.id 
-  }).populate({
-    path: "user",
-    select: "name _id"
-  })
-
-  appSuccess(res, 200, 'success', likeList);
-}));
+    /*  #swagger.tags = ['User']
+        #swagger.description = '獲取個人喜歡列表' */
+      /* #swagger.security = [{
+              "apiKeyAuth": []
+      }] */
+    /* #swagger.responses[200] = { 
+        schema: {
+            "message": "string",
+            "data": [
+                {
+                    "_id": "string",
+                    "title": "string",
+                    "content": "string",
+                    "createdAt": "string",
+                    "user": {
+                        "_id": "string",
+                        "name": "string"
+                    }
+                }
+            ]
+        },
+        description: "獲取個人喜歡列表成功"
+    } */
+    /* #swagger.responses[401] = { 
+        schema: {
+            "error": "string"
+        },
+        description: "Unauthorized. Invalid or missing token."
+    } */
+    /* #swagger.responses[500] = { 
+        schema: {
+            "error": "string"
+        },
+        description: "Internal server error."
+    } */ 
+    isAuth, handleErrorAsync(async (req, res, next) => {
+      const likeList = await Post.find({
+        "likes.user": req.user.id // 確保只返回當前用戶按讚的貼文
+      })
+      .select("content image createdAt") // 選取所需字段
+      .populate({
+        path: "user", // 填充貼文作者信息
+        select: "name _id"
+      });
+  
+      appSuccess(res, 200, 'success', likeList);
+    })
+  );
 
 /* follow friend */
 router.post('/:id/follow',
