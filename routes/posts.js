@@ -512,14 +512,19 @@ router.delete('/:id/likes',
     isAuth, handleErrorAsync(async(req, res, next) => {
     const _id = req.params.id;
     const post = await Post.findOneAndUpdate(
-        { _id },
         { 
-            $addToSet: { 
+            _id: postId 
+        },
+        { 
+            $pull: { 
                 likes: { 
-                    user: req.user.id
+                    user: req.user.id 
                 } 
             } 
-        },
+        }, // 移除按讚
+        { 
+            new: true 
+        }
     );
 
     if (!post) {
