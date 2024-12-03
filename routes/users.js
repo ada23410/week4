@@ -461,7 +461,7 @@ router.get('/getLikeList',
       .select("content image createdAt") // 選取所需字段
       .populate({
         path: "user", // 填充貼文作者信息
-        select: "name _id"
+        select: "name _id photo"
       });
   
       appSuccess(res, 200, 'success', likeList);
