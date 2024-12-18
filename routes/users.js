@@ -644,4 +644,21 @@ router.get('/following',
   appSuccess(res, 200, 'success', user.following);
 }));
 
+/* get personal unfollowed list */
+router.get('/unfollowed', isAuth, handleErrorAsync(async (req, res, next) => {
+      const currentUser = await User.findById(req.user.id);
+      if (!currentUser) {
+        return next(appError(404, '當前用戶未找到'));
+      }
+  
+      // Find users that are not in the current user's following list
+      const unfollowedUsers = await User.find({
+        _id: { $ne: req.user.id }, // Exclude the current user
+        'followers.user': { $ne: req.user.id } // Exclude users that the current user is already following
+      }).select('name photo followers');
+  
+      appSuccess(res, 200, '獲取未追蹤用戶列表成功', unfollowedUsers);
+    })
+  );
+
 module.exports = router;
